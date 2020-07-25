@@ -1,14 +1,9 @@
 include mixins/bem.pug
 include mixins/svg.pug
-include mixins/img.pug
-- const casual = require('casual-browserify')
 
 doctype html
 html.no-js(lang=currentLocaleAlt||null)
   include site/partials/head/head.pug
-  body(class=`ui ${prRouterId}`)
-    include site/partials/header/header.pug
+  body
     include site/partials/main.pug
-    include site/partials/footer/footer.pug
-
     include site/partials/scripts-hashed.pug

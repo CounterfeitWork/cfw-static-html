@@ -10,7 +10,7 @@
         "precomposedIcons": false,
         "declareOnlyDefaultIcon": true
       },
-      "appName": "TODO: add project name"
+      "appName": "CFW"
     },
     "desktopBrowser": {},
     "windows": {
@@ -26,13 +26,13 @@
           "rectangle": false
         }
       },
-      "appName": "TODO: add project name"
+      "appName": "CFW"
     },
     "androidChrome": {
       "pictureAspect": "noChange",
       "themeColor": "#ffffff",
       "manifest": {
-        "name": "TODO: add project name",
+        "name": "CFW",
         "display": "standalone",
         "orientation": "notSet",
         "onConflict": "override",

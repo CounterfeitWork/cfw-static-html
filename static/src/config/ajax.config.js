@@ -1,5 +1,3 @@
-// TODO: Edit or delete this file
-
 const debug = false;
 
 const updatePassive = [

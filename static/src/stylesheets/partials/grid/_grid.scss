@@ -4,8 +4,6 @@
   margin: 0 auto;
   padding: 0 $gutter;
 
-  // TODO: Remove or uncomment bellow
-  // FIXME: [PRFB-55] Find fix for notch support
   // @see https://webkit.org/blog/7929/designing-websites-for-iphone-x/
   // @see https://github.com/webpack-contrib/sass-loader/issues/528#issuecomment-362259216
   // @supports (padding: max(0)) {
@@ -17,7 +15,6 @@
   @include bp('grid-big') {
     padding: 0 $gutter-big;
 
-    // FIXME: [PRFB-55] Find fix for notch support
     // @supports (padding: max(0)) {
     //   padding-left: m#{a}x(#{$gutter-big}, env(safe-area-inset-left));
     //   padding-right: m#{a}x(#{$gutter-big}, env(safe-area-inset-right));
@@ -28,7 +25,6 @@
   @include bp('grid-bigger') {
     padding: 0 $gutter-bigger;
 
-    // FIXME: [PRFB-55] Find fix for notch support
     // @supports (padding: max(0)) {
     //   padding-left: m#{a}x(#{$gutter-bigger}, env(safe-area-inset-left));
     //   padding-right: m#{a}x(#{$gutter-bigger}, env(safe-area-inset-right));
@@ -36,7 +32,6 @@
   }
 
   // Sub grids (to be used in grid areas)
-  // TODO: Remove or uncomment bellow
   // @include e('sub') {
   //   @include setup-auto-grid-modifier(
   //     $column-gap: $gutter,
@@ -92,7 +87,7 @@
   }
 
   // Grid modifiers
-  @import 'header';
-  @import 'main';
-  @import 'footer';
+  // @import 'header';
+  // @import 'main';
+  // @import 'footer';
 }

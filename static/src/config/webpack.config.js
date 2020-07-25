@@ -40,7 +40,6 @@ module.exports = (env, options) => {
   let pugScriptsPath;
   const publicPath = isBoilerplate || isStatic ? '/static/dist/' : '/';
 
-  // TODO: [PRFB-53] Add pug partials paths for static and express app types
   if (isBoilerplate || isStatic) {
     pugPartialsDirPath = Path.join(RootDirPath, 'site/partials');
     pugStylesheetsPath = Path.join(pugPartialsDirPath, 'head/styles-hashed.pug');

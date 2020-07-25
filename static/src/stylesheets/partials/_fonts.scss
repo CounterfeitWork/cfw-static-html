@@ -1,41 +1,19 @@
-// TODO: Take over bellow
+@font-face {
+  font: {
+    family: 'UniversLTStd';
+    weight: 400;
+    style: normal;
+  }
+  src: url('~src/fonts/UniversLTStd.woff2') format('woff2'),
+       url('~src/fonts/UniversLTStd.woff') format('woff');
+}
 
-// @font-face {
-//   font: {
-//     family: 'Font';
-//     weight: 400;
-//     style: normal;
-//   }
-//   src: url('~src/fonts/font.woff2') format('woff2'),
-//     url('~src/fonts/font.woff') format('woff');
-// }
-
-// @font-face {
-//   font: {
-//     family: 'Font';
-//     weight: 400;
-//     style: italic;
-//   }
-//   src: url('~src/fonts/font-italic.woff2') format('woff2'),
-//     url('~src/fonts/font-italic.woff') format('woff');
-// }
-
-// @font-face {
-//   font: {
-//     family: 'Font';
-//     weight: 700;
-//     style: normal;
-//   }
-//   src: url('~src/fonts/font-bold.woff2') format('woff2'),
-//     url('~src/fonts/font-bold.woff') format('woff');
-// }
-
-// @font-face {
-//   font: {
-//     family: 'Font';
-//     weight: 700;
-//     style: italic;
-//   }
-//   src: url('~src/fonts/font-bold-italic.woff2') format('woff2'),
-//     url('~src/fonts/font-bold-italic.woff') format('woff');
-// }
+@font-face {
+  font: {
+    family: 'Noto Sans';
+    weight: 400;
+    style: normal;
+  }
+  src: url('~src/fonts/notosanstc-regular-webfont.woff2') format('woff2'),
+       url('~src/fonts/notosanstc-regular-webfont.woff') format('woff');
+}

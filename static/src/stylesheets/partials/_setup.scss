@@ -12,13 +12,11 @@ $checkbox-size-s: 10px;
 ////
 /// Breaking points
 ////
-// TODO: Edit file referenced bellow
 @import '../../config/css-breakpoints-config.json';
 
 ////
 /// Grid
 ////
-// TODO: Edit file referenced bellow
 @import '../../config/css-grid-config.json';
 
 ////
@@ -30,21 +28,18 @@ $checkbox-size-s: 10px;
 ////
 /// Colors
 ////
-// TODO: Edit file referenced bellow
 @import '../../config/css-colors-config.json';
 
 ////
 /// Fonts
 ////
 
-// TODO: Take over bellow
-
 // Font weights
 $font-weight-regular: 400;
-$font-weight-bold: 700;
+$font-weight-bold: 400;
 
 // Fonts stacks
-$text-font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+$text-font-family: 'UniversLTStd', sans-serif;
 $text-font-weight: $font-weight-regular;
 $titles-font-family: $text-font-family;
 $titles-font-weight: $font-weight-bold;

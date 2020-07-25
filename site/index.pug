@@ -1,33 +1,3 @@
 extends ../layout.pug
 
 block main
-  +e('grid', 'area', 'div', ['main-map'])
-    .js-map(data-lat='24' data-lng='12' style='padding-bottom: 66%;')
-
-  +e('grid', 'area', 'div', ['main-globe'])
-    +svg(10,10)
-      img(inline src=require("../static/src/images/vectors/inline/globe.svg"))
-  +e('grid', 'area', 'div', ['main-collection'])
-    each index in [1, 2, 3, 4, 5, 6, 7, 8]
-      div= casual.full_name
-
-  +e('grid', 'area', 'div', ['main-text'])
-    h2 World
-    p The world is the planet Earth and all life on it, including human civilization.[1] In a philosophical context, the "world" is the whole of the physical Universe, or an ontological world (the "world" of an individual). In a theological context, the world is the material or the profane sphere, as opposed to the celestial, spiritual, transcendent or sacred spheres. "End of the world" scenarios refer to the end of human history, often in religious contexts.
-    p The history of the world is commonly understood as spanning the major geopolitical developments of about five millennia, from the first civilizations to the present. In terms such as world religion, world language, world government, and world war, the term world suggests an international or intercontinental scope without necessarily implying participation of every part of the world.
-    p The world population is the sum of all human populations at any time; similarly, the world economy is the sum of the economies of all societies or countries, especially in the context of globalization. Terms such as "world championship", "gross world product", and "world flags" imply the sum or combination of all sovereign states.
-    h3 Etymology and usage
-    p The English word world comes from the Old English weorold (-uld), weorld, worold (-uld, -eld), a compound of wer "man" and eld "age," which thus means roughly "Age of Man."[2] The Old English is a reflex of the Common Germanic *wira-alđiz, also reflected in Old Saxon werold, Old Dutch werilt, Old High German weralt, Old Frisian warld and Old Norse verǫld (whence the Icelandic veröld).[3]
-    p The corresponding word in Latin is mundus, literally "clean, elegant", itself a loan translation of Greek cosmos "orderly arrangement." While the Germanic word thus reflects a mythological notion of a "domain of Man" (compare Midgard), presumably as opposed to the divine sphere on the one hand and the chthonic sphere of the underworld on the other, the Greco-Latin term expresses a notion of creation as an act of establishing order out of chaos.
-    p "World" distinguishes the entire planet or population from any particular country or region: world affairs pertain not just to one place but to the whole world, and world history is a field of history that examines events from a global (rather than a national or a regional) perspective. Earth, on the other hand, refers to the planet as a physical entity, and distinguishes it from other planets and physical objects.
-    p "World" was also classically used to mean the material universe, or the cosmos: "The worlde is an apte frame of heauen and earthe, and all other naturall thinges contained in them."[4] The earth was often described as "the center of the world".[5]
-    p The term can also be used attributively, to mean "global", or "relating to the whole world", forming usages such as world community or world canonical texts.[6]
-    p By extension, a world may refer to any planet or heavenly body, especially when it is thought of as inhabited, especially in the context of science fiction or futurology.
-    p World, in its original sense, when qualified, can also refer to a particular domain of human experience.
-    ul
-      li The world of work describes paid work and the pursuit of a career, in all its social aspects, to distinguish it from home life and academic study.
-      li The fashion world describes the environment of the designers, fashion houses and consumers that make up the fashion industry.
-      li historically, the New World vs. the Old World, referring to the parts of the world colonized in the wake of the age of discovery. Now mostly used in zoology and botany, as in New World monkey.
-
-  +e('grid', 'area', 'div', ['main-image-loading-lazy'])
-    +img({ image: { loading:'lazy', url:'https://image.shutterstock.com/z/stock-photo-beautiful-water-drop-on-a-dandelion-flower-seed-macro-in-nature-beautiful-deep-saturated-blue-and-789676552.jpg' } })
