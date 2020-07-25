@@ -1,5 +1,5 @@
 {
-  "masterPicture": "app/static/src/images/favicon-master.png",
+  "masterPicture": "static/src/images/favicon-master.png",
   "iconsPath": "/images/favicons",
   "design": {
     "ios": {
