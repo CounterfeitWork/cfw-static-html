@@ -1,0 +1,50 @@
+////
+/// Font sizes
+////
+
+// Text
+
+$text-1-font-size: 16px;
+$text-1-lineheight: 18px;
+$text-1-letterspacing: 0;
+$text-1: ($text-1-font-size, $text-1-lineheight, $text-1-letterspacing);
+
+$text-2-font-size: 18px;
+$text-2-lineheight: 20px;
+$text-2-letterspacing: 0;
+$text-2: ($text-2-font-size, $text-2-lineheight, $text-2-letterspacing);
+
+$text-3-font-size: 20px;
+$text-3-lineheight: 22px;
+$text-3-letterspacing: 0;
+$text-3: ($text-3-font-size, $text-3-lineheight, $text-3-letterspacing);
+
+$text-4-font-size: 22px;
+$text-4-lineheight: 24px;
+$text-4-letterspacing: 0;
+$text-4: ($text-4-font-size, $text-4-lineheight, $text-4-letterspacing);
+
+////
+/// Base typography rules
+////
+
+:root {
+  font-family: $text-font-family;
+  font-weight: $font-weight-regular;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: color-get('black');
+
+  // OpenType features
+  // @see: http://practice.typekit.com/lesson/caring-about-opentype-features/
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures, contextual;
+  -moz-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+  -ms-font-feature-settings: 'kern', 'liga', 'clig', 'alt';
+  -webkit-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+  font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+}
+
+body {
+  @include typography-setup($text-3..., $margins: false);
+}

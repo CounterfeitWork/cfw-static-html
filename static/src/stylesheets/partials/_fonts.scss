@@ -1,0 +1,19 @@
+@font-face {
+  font: {
+    family: 'UniversLTStd';
+    weight: 400;
+    style: normal;
+  }
+  src: url('~src/fonts/UniversLTStd.woff2') format('woff2'),
+       url('~src/fonts/UniversLTStd.woff') format('woff');
+}
+
+@font-face {
+  font: {
+    family: 'Noto Sans';
+    weight: 400;
+    style: normal;
+  }
+  src: url('~src/fonts/notosanstc-regular-webfont.woff2') format('woff2'),
+       url('~src/fonts/notosanstc-regular-webfont.woff') format('woff');
+}

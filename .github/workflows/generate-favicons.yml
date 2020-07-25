@@ -1,0 +1,36 @@
+name: Generate favicons
+on:
+  pull_request:
+    paths:
+      - 'app/static/src/images/favicon-master.png'
+jobs:
+  build:
+    name: Generate favicons
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Setup node/npm
+        uses: actions/setup-node@v1
+
+      - name: Install cli-real-favicon
+        run: npm install cli-real-favicon -g
+
+      - name: Prepare repo for commit
+        run: |
+          git config --global user.email 'github-actions-git-commit@users.noreply.github.com'
+          git config --global user.name 'Github Actions'
+          git fetch origin pull/${{ github.event.pull_request.number }}/head:${{ github.event.pull_request.head.ref }}
+          git checkout ${{ github.event.pull_request.head.ref }}
+
+      - name: Generate favicon images
+        run: |
+          real-favicon generate ./app/static/src/config/faviconDescription.json ./app/static/src/config/faviconData.json ./app/static/src/images/favicons
+          real-favicon inject ./app/static/src/config/faviconData.json ./app/static/src/images/favicons ./app/static/src/config/favicons-template.pug
+
+      - name: Commit changes and push
+        run: |
+          git add .
+          git commit -m 'Generate favicons via cli-real-favicon'
+          git push origin ${{ github.event.pull_request.head.ref }}

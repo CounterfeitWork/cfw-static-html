@@ -1,0 +1,40 @@
+.svg-inline-container {
+  display: block;
+
+  svg {
+    display: block;
+    max: {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // @see: https://css-tricks.com/scale-svg/#article-header-id-10
+  @include m('scalable') {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding: 0;
+    padding-bottom: 100%;
+
+    svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  @include m('fill-currentcolor') {
+    #{$all-svg-shapes} {
+      fill: currentColor;
+    }
+  }
+
+  @include m('stroke-currentcolor') {
+    #{$all-svg-shapes} {
+      stroke: currentColor;
+    }
+  }
+}

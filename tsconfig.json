@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["./static/src/javascripts/components/*"],
+      "@classes/*": ["./static/src/javascripts/classes/*"],
+      "@config/*": ["./static/src/config/*"]
+    },
+    "typeRoots": ["node_modules/@types", "test/typings", "static/src/javascripts/typings"]
+  }
+}

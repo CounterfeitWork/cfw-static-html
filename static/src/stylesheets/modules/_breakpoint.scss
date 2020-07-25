@@ -1,0 +1,24 @@
+////
+/// @alias breakpoint (from breakpoint-sass lib)
+////
+@mixin bp($key...) {
+  @each $key-item in $key {
+    @include breakpoint(map-get($bp, $key-item)) {
+      @content;
+    }
+  }
+}
+
+////
+/// Performs a map-get on a sass map (defaults to the `$bp` map
+/// imported from src/config/css-breakpoints-config.json)
+///
+/// @param {String} $key - Sass map key
+////
+@function bp-get($key) {
+  @if $key == false {
+    @return 0;
+  } @else {
+    @return map-get($bp, $key);
+  }
+}

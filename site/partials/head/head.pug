@@ -1,0 +1,11 @@
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  include ./seo.pug
+  include ../../../static/src/images/favicons/favicons-template.pug
+  include ./google-analytics.pug
+
+  if isIEorEdge && ieEdgeStylesheetHash
+    link(rel='stylesheet' href=`/css/critical-ie-edge.css?h=${ieEdgeStylesheetHash}`)
+
+  include ./styles-hashed.pug

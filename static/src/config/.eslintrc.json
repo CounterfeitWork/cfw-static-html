@@ -1,0 +1,63 @@
+{
+  "extends": [
+    "plugin:prettier/recommended",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jsdoc/recommended"
+  ],
+  "plugins": ["prettier", "jest", "@typescript-eslint", "jsdoc"],
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+  "globals": {
+    "page": true,
+    "browser": true,
+    "context": true,
+    "jestPuppeteer": true
+  },
+  "rules": {
+    "no-var": "error",
+    "prefer-const": "error",
+    "no-console": "warn",
+    "yoda": "error",
+    "semi": "error",
+    "prettier/prettier": "warn",
+    "@typescript-eslint/no-use-before-define": ["off"],
+    "camelcase": "off",
+    "@typescript-eslint/camelcase": ["off"],
+    "prefer-rest-params": "off",
+    "@typescript-eslint/no-this-alias": "off",
+    "@typescript-eslint/ban-ts-comment": [
+      "error",
+      {
+        "ts-expect-error": "allow-with-description",
+        "ts-ignore": "allow-with-description",
+        "ts-nocheck": "allow-with-description",
+        "ts-check": "allow-with-description",
+        "minimumDescriptionLength": 2
+      }
+    ],
+    "jsdoc/require-jsdoc": [
+      "warn",
+      {
+        "publicOnly": false,
+        "contexts": [
+          "ArrowFunctionExpression",
+          "ClassDeclaration",
+          "ClassExpression",
+          "ExportNamedDeclaration"
+        ]
+      }
+    ]
+  },
+  "settings": {
+    "jsdoc": {
+      "mode": "typescript"
+    }
+  }
+}

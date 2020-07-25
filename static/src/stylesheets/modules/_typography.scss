@@ -1,0 +1,268 @@
+////
+/// Calculates rem size from pixel size
+///
+/// @param {Number} $size - Size in pixels
+///
+/// @return {Number} - Corresponding size in rem
+////
+@function calculate-rem($size) {
+  $remSize: $size / 16px;
+  @return $remSize * 1rem;
+}
+
+////
+/// Sets CSS declarations for font-size in rem units from pixel units
+///
+/// @param {Number} $size - Font size in pixels
+/// @param {Number} $line - Line height in pixels
+/// @param {Number|Bool} $letter-spacing - Letter spacing in pixels or false
+/// @param {Bool|Map} $margins - False or map of `top` and `bottom` margin values (multipliers) based on line-height. ex: ('top': 1, 'bottom': 1)
+/// @param {Bool} $margins-inside - `true` to apply margins to content elements inside or `false` to apply margins to element
+/// @param {Bool} $contain-margins - `true` to contain margins
+////
+@mixin typography-setup(
+  $size: 16px,
+  $line: 20px,
+  $letter-spacing: false,
+  $margins: false,
+  $margins-inside: false,
+  $margins-inside-direct-child-only: true,
+  $contain-margins: false
+) {
+  font-size: calculate-rem($size);
+
+  @if $line {
+    line-height: $line / $size;
+
+    @if $margins {
+      @if $margins-inside {
+        $block-els-list: if(
+          $margins-inside-direct-child-only,
+          $all-md-block-child-els,
+          $all-md-block-els
+        );
+
+        #{$block-els-list} {
+          @each $key, $val in $margins {
+            margin-#{$key}: #{($size * ($line / $size) * $val) / $size}#{'em'};
+          }
+
+          @if $contain-margins {
+            @include contain-margins;
+          }
+        }
+      } @else {
+        @each $key, $val in $margins {
+          margin-#{$key}: #{($size * ($line / $size) * $val) / $size}#{'em'};
+        }
+
+        @if $contain-margins {
+          @include contain-margins;
+        }
+      }
+    }
+  }
+
+  @if $letter-spacing and $letter-spacing != 0px and $letter-spacing != 0 {
+    // stylelint-disable-line
+    letter-spacing: ($letter-spacing / $size) + em;
+  }
+}
+
+////
+/// Get 1em equivalent based on line-height
+////
+@function line-height-em($list) {
+  @return (nth($list, 2) / nth($list, 1)) * 1em;
+}
+
+////
+/// Sets CSS declarations for ellipsis overflow
+////
+@mixin ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+////
+/// Sets CSS declarations to break words
+////
+@mixin word-wrap {
+  word-break: break-word;
+  hyphens: auto;
+}
+
+////
+/// Sets CSS declarations to style links (state 1)
+////
+@mixin link-styles-state-1($context: 'normal') {
+  @if $context == 'normal' {
+    text-decoration: underline;
+    color: inherit;
+
+    &:visited {
+      color: inherit;
+    }
+  } @else if $context == 'color' {
+    text-decoration: none;
+    color: color-get('iricblue');
+
+    &:visited {
+      color: color-get('iricblue');
+    }
+  }
+}
+
+////
+/// Sets CSS declarations to set link styles (state 2)
+////
+@mixin link-styles-state-2($context: 'normal') {
+  @if $context == 'normal' {
+    text-decoration: none;
+    color: inherit;
+
+    &:visited {
+      color: inherit;
+    }
+  } @else if $context == 'color' {
+    text-decoration: underline;
+    color: color-get('iricblue');
+
+    &:visited {
+      color: color-get('iricblue');
+    }
+  }
+}
+
+////
+/// Sets CSS declarations to set link styles
+////
+@mixin link-styles($context: 'normal') {
+  & {
+    @include link-styles-state-1($context);
+  }
+
+  &:hover,
+  .js-focus-visible &.focus-visible,
+  &:active {
+    @include link-styles-state-2($context);
+  }
+
+  .active > &,
+  .is-active > &,
+  .current-menu-item > &,
+  .current-page-ancestor > &,
+  .is-active &,
+  &.is-active {
+    @include link-styles-state-2($context);
+
+    &:hover,
+    .js-focus-visible &.focus-visible,
+    &:active {
+      @include link-styles-state-1($context);
+    }
+  }
+}
+
+////
+/// Sets CSS declarations to set link styles inside a CSS declaration block
+////
+@mixin links-styles($context: 'normal') {
+  & a,
+  & span.link {
+    @include link-styles($context);
+  }
+}
+
+////
+/// Sets CSS declarations to set link styles (inverted)
+////
+@mixin link-styles-inverted($context: 'normal') {
+  & {
+    @include link-styles-state-2($context);
+  }
+
+  &:hover,
+  .js-focus-visible &.focus-visible,
+  &:active {
+    @include link-styles-state-1($context);
+  }
+
+  .active > &,
+  .is-active > &,
+  .current-menu-item > &,
+  .current-page-ancestor > &,
+  .is-active &,
+  &.is-active {
+    @include link-styles-state-1($context);
+
+    &:hover,
+    .js-focus-visible &.focus-visible,
+    &:active {
+      @include link-styles-state-2($context);
+    }
+  }
+}
+
+////
+/// Sets CSS declarations to set link styles inside a CSS declaration block (inverted)
+////
+@mixin links-styles-inverted($context: 'normal') {
+  & a,
+  & span.link {
+    @include link-styles-inverted($context);
+  }
+}
+
+////
+/// Sets CSS declarations to reset list styles
+////
+@mixin list-reset {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+////
+/// Sets CSS declarations to reset list styles inside a CSS declaration block
+////
+@mixin lists-reset {
+  ul,
+  ol {
+    @include list-reset;
+  }
+}
+
+////
+/// Constructs $all-headings var to be used as a selector
+////
+$headings-list: 'h1', '.h1', 'h2', '.h2', 'h3', '.h3', 'h4', '.h4', 'h5', '.h5', 'h6', '.h6';
+$unquoted-headings-list: ();
+@each $el in $headings-list {
+  $unquoted-headings-list: append($unquoted-headings-list, unquote($el), comma);
+}
+$all-headings: $unquoted-headings-list;
+$headings-child-list: '> h1', '> .h1', '> h2', '> .h2', '> h3', '> .h3', '> h4', '> .h4', '> h5',
+  '> .h5', '> h6', '> .h6';
+$unquoted-headings-child-list: ();
+@each $el in $headings-child-list {
+  $unquoted-headings-child-list: append($unquoted-headings-child-list, unquote($el), comma);
+}
+$all-headings-child: $unquoted-headings-child-list;
+
+////
+/// Constructs $all-md-block-els var to be used as a selector
+////
+$md-block-els-list: 'p', 'blockquote', 'ul', 'ol', 'pre', 'dl';
+$unquoted-md-block-els-list: ();
+@each $el in $md-block-els-list {
+  $unquoted-md-block-els-list: append($unquoted-md-block-els-list, unquote($el), comma);
+}
+$all-md-block-els: $unquoted-md-block-els-list;
+$md-block-els-child-list: '> p', '> blockquote', '> ul', '> ol', '> pre', '> dl';
+$unquoted-md-block-els-child-list: ();
+@each $el in $md-block-els-child-list {
+  $unquoted-md-block-els-child-list: append($unquoted-md-block-els-child-list, unquote($el), comma);
+}
+$all-md-block-child-els: $unquoted-md-block-els-child-list;

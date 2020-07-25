@@ -1,0 +1,187 @@
+////
+/// Adds a CSS declaration block to apply a clearfix to a selector
+////
+@mixin clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+////
+/// Adds declarations to a CSS declaration block to horizontally centers a block-level selector
+////
+@mixin center-block {
+  display: block;
+  margin: {
+    left: auto;
+    right: auto;
+  }
+}
+
+////
+/// Adds CSS declaration blocks to contain margins on a selector
+////
+@mixin contain-margins($target: 'both') {
+  @if $target == 'first-child' or $target == 'both' {
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  @if $target == 'last-child' or $target == 'both' {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+////
+/// Adds CSS declaration blocks to contain margins on a slector's children
+////
+@mixin contain-margins-inside {
+  & > *:first-child {
+    margin-top: 0;
+  }
+
+  & > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+////
+/// Adds CSS declaration blocks to contain padding on a selector
+////
+@mixin contain-padding {
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+}
+
+////
+/// Adds CSS declaration blocks to contain padding on a slector's children
+////
+@mixin contain-padding-inside {
+  & > *:first-child {
+    padding-top: 0;
+  }
+
+  & > *:last-child {
+    padding-bottom: 0;
+  }
+}
+
+////
+/// Adds CSS declaration blocks to seperate instances of a selector
+////
+@mixin sep-items($size: 1em, $contain: true, $sep-type: 'margin') {
+  & {
+    #{$sep-type}: 0 0 $size 0;
+
+    &:first-child:last-child {
+      #{$sep-type}-bottom: 0;
+    }
+  }
+
+  @if $contain {
+    & + & {
+      &:first-child {
+        #{$sep-type}-top: 0;
+      }
+
+      &:last-child {
+        #{$sep-type}-bottom: 0;
+      }
+    }
+  }
+}
+
+////
+/// Adds CSS declaration blocks to seperate instances of a selector's children
+///
+/// @param {Number} $size - Size of the separator expressed in any CSS unit
+/// @param {Bool} $contain - Use `true` to contain separation (no separation on top
+///                          for first child, no separation on bottom for last child)
+/// @param {String ('margin'|'padding')} $sep-type - Separation type name (margin or padding)
+////
+@mixin sep-items-inside($size: 1em, $contain: true, $sep-type: 'margin') {
+  & > * {
+    #{$sep-type}: 0 0 $size 0;
+
+    @if $contain {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+////
+/// Adds declarations to a CSS declaration block to apply an SEO-friendly alternative to diplay:none
+////
+@mixin hidden {
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  position: absolute;
+}
+
+////
+/// Remove hidden mixins effect (see above)
+////
+@mixin not-hidden {
+  margin: auto;
+  padding: auto;
+  width: auto;
+  height: auto;
+  overflow: auto;
+  clip: auto;
+  position: static;
+}
+
+////
+/// Adds declarations to a CSS declaration block to enable scroll inside a selector (with iOS touch support)
+////
+@mixin scroll-inside {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+////
+/// Adds declarations to a CSS declaration block to dvoid breaks inside a multi-column selector
+////
+@mixin avoid-break-inside {
+  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+  -moz-page-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+
+////
+/// vh that works as intended on iOS
+////
+@function vh($num, $calc: true) {
+  @if $calc {
+    @return calc(var(--vh, 1vh) * #{$num});
+  } @else {
+    @return var(--vh, 1vh) * #{$num};
+  }
+}
+
+@mixin height-100vh {
+  height: 100vh; // stylelint-disable-line
+  height: vh(100); // stylelint-disable-line
+}
+@mixin min-height-100vh {
+  min-height: 100vh; // stylelint-disable-line
+  min-height: vh(100); // stylelint-disable-line
+}

@@ -1,0 +1,9 @@
+include mixins/bem.pug
+include mixins/svg.pug
+
+doctype html
+html.no-js(lang=currentLocaleAlt||null)
+  include site/partials/head/head.pug
+  body
+    include site/partials/main.pug
+    include site/partials/scripts-hashed.pug

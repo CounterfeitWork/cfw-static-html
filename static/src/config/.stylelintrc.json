@@ -1,0 +1,112 @@
+{
+  "plugins": ["stylelint-no-unsupported-browser-features", "stylelint-scss"],
+  "rules": {
+    "at-rule-name-case": "lower",
+    "block-no-empty": true,
+    "color-no-hex": true,
+    "color-no-invalid-hex": true,
+    "comment-no-empty": true,
+    "comment-whitespace-inside": "always",
+    "declaration-block-no-duplicate-properties": true,
+    "declaration-block-no-redundant-longhand-properties": true,
+    "declaration-block-no-shorthand-property-overrides": true,
+    "declaration-no-important": [true, { "severity": "warning" }],
+    "font-family-name-quotes": "always-unless-keyword",
+    "font-family-no-duplicate-names": true,
+    "font-weight-notation": "numeric",
+    "function-calc-no-invalid": true,
+    "function-calc-no-unspaced-operator": true,
+    "function-linear-gradient-no-nonstandard-direction": true,
+    "function-max-empty-lines": 0,
+    "function-name-case": "lower",
+    "function-url-no-scheme-relative": true,
+    "function-url-quotes": "always",
+    "function-whitespace-after": "always",
+    "indentation": [
+      2,
+      {
+        "ignore": ["value", "inside-parens"]
+      }
+    ],
+    "keyframe-declaration-no-important": true,
+    "linebreaks": "unix",
+    "max-empty-lines": 2,
+    "max-nesting-depth": 5,
+    "media-feature-name-case": "lower",
+    "media-feature-name-no-unknown": true,
+    "no-descending-specificity": true,
+    "no-duplicate-at-import-rules": true,
+    "no-duplicate-selectors": true,
+    "no-empty-source": true,
+    "no-empty-first-line": true,
+    "no-eol-whitespace": true,
+    "no-extra-semicolons": true,
+    "no-invalid-double-slash-comments": true,
+    "no-unknown-animations": true,
+    "number-leading-zero": "never",
+    "number-max-precision": 3,
+    "number-no-trailing-zeros": true,
+    "property-case": "lower",
+    "property-no-unknown": true,
+    "selector-attribute-quotes": "always",
+    "selector-descendant-combinator-no-non-space": true,
+    "selector-max-attribute": 2,
+    "selector-max-class": 3,
+    "selector-max-combinators": 3,
+    "selector-max-compound-selectors": 3,
+    "selector-max-empty-lines": 3,
+    "selector-max-id": 2,
+    "selector-max-pseudo-class": 3,
+    "selector-max-type": 2,
+    "selector-max-universal": 2,
+    "selector-pseudo-class-case": "lower",
+    "selector-pseudo-class-no-unknown": true,
+    "selector-pseudo-class-parentheses-space-inside": "never",
+    "selector-pseudo-element-case": "lower",
+    "selector-pseudo-element-colon-notation": "double",
+    "selector-pseudo-element-no-unknown": true,
+    "selector-type-case": "lower",
+    "selector-type-no-unknown": true,
+    "shorthand-property-no-redundant-values": true,
+    "string-no-newline": true,
+    "string-quotes": "single",
+    "unit-case": "lower",
+    "unit-no-unknown": true,
+    "value-list-max-empty-lines": 0,
+    "plugin/no-unsupported-browser-features": [
+      true,
+      {
+        "severity": "warning",
+        "ignore": [],
+        "browsers": ["> 0.5%", "last 2 versions", "Firefox ESR", "not dead", "not OperaMini all"]
+      }
+    ],
+    "scss/at-each-key-value-single-line": true,
+    "scss/at-else-empty-line-before": "never",
+    "scss/at-if-closing-brace-newline-after": "always-last-in-chain",
+    "scss/at-mixin-argumentless-call-parentheses": "never",
+    "scss/at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["critical", "import-normalize", "import-sanitize"]
+      }
+    ],
+    "scss/dollar-variable-no-missing-interpolation": true,
+    "scss/declaration-nested-properties": [
+      "always",
+      {
+        "severity": "warning",
+        "except": ["only-of-namespace"]
+      }
+    ],
+    "scss/declaration-nested-properties-no-divided-groups": true,
+    "scss/function-quote-no-quoted-strings-inside": true,
+    "scss/function-unquote-no-unquoted-strings-inside": true,
+    "scss/operator-no-newline-after": true,
+    "scss/operator-no-newline-before": true,
+    "scss/operator-no-unspaced": true,
+    "scss/function-color-relative": true,
+    "scss/map-keys-quotes": "always",
+    "scss/no-duplicate-mixins": true
+  }
+}

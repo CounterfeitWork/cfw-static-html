@@ -1,0 +1,132 @@
+////
+/// Styles input placeholder content
+////
+@mixin placeholder {
+  ::-webkit-input-placeholder {
+    @content;
+  }
+
+  ::-moz-placeholder {
+    @content;
+  }
+
+  :-moz-placeholder {
+    @content;
+  }
+
+  :-ms-input-placeholder {
+    @content;
+  }
+}
+
+////
+/// Resets button
+////
+@mixin button-reset {
+  -webkit-appearance: none;
+  border-radius: 0;
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+}
+
+////
+/// Resets iOS input styles
+////
+@mixin ios-input-reset {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+////
+/// Constructs $all-buttons, $all-buttons-hover and $all-buttons-focus vars to be used as a selector
+////
+$buttons-list: 'button',
+               'input[type="button"]',
+               'input[type="reset"]',
+               'input[type="submit"]';
+$unquoted-buttons-list: ();
+@each $buttons-type in $buttons-list {
+  $unquoted-buttons-list: append($unquoted-buttons-list, unquote($buttons-type), comma);
+}
+$all-buttons: $unquoted-buttons-list;
+$buttons-list-hover: 'button:hover',
+                     'input[type="button"]:hover',
+                     'input[type="reset"]:hover',
+                     'input[type="submit"]:hover';
+$unquoted-buttons-list-hover: ();
+@each $buttons-type-hover in $buttons-list-hover {
+  $unquoted-buttons-list-hover: append($unquoted-buttons-list-hover, unquote($buttons-type-hover), comma);
+}
+$all-buttons-hover: $unquoted-buttons-list-hover;
+$buttons-list-focus: 'button:focus',
+                     'input[type="button"]:focus',
+                     'input[type="reset"]:focus',
+                     'input[type="submit"]:focus';
+
+$unquoted-buttons-list-focus: ();
+@each $buttons-type-focus in $buttons-list-focus {
+  $unquoted-buttons-list-focus: append($unquoted-buttons-list-focus, unquote($buttons-type-focus), comma);
+}
+$all-buttons-focus: $unquoted-buttons-list-focus;
+
+////
+/// Constructs $all-text-inputs, $all-text-inputs-hover and $all-text-inputs-focus vars to be used as a selector
+////
+$inputs-list: 'input[type="email"]',
+              'input[type="number"]',
+              'input[type="password"]',
+              'input[type="search"]',
+              'input[type="tel"]',
+              'input[type="text"]',
+              'input[type="url"]',
+              'input[type="color"]',
+              'input[type="date"]',
+              'input[type="datetime"]',
+              'input[type="datetime-local"]',
+              'input[type="month"]',
+              'input[type="time"]',
+              'input[type="week"]';
+$unquoted-inputs-list: ();
+@each $input-type in $inputs-list {
+  $unquoted-inputs-list: append($unquoted-inputs-list, unquote($input-type), comma);
+}
+$all-text-inputs: $unquoted-inputs-list;
+$inputs-list-hover: 'input[type="email"]:hover',
+                    'input[type="number"]:hover',
+                    'input[type="password"]:hover',
+                    'input[type="search"]:hover',
+                    'input[type="tel"]:hover',
+                    'input[type="text"]:hover',
+                    'input[type="url"]:hover',
+                    'input[type="color"]:hover',
+                    'input[type="date"]:hover',
+                    'input[type="datetime"]:hover',
+                    'input[type="datetime-local"]:hover',
+                    'input[type="month"]:hover',
+                    'input[type="time"]:hover',
+                    'input[type="week"]:hover';
+$unquoted-inputs-list-hover: ();
+@each $input-type-hover in $inputs-list-hover {
+  $unquoted-inputs-list-hover: append($unquoted-inputs-list-hover, unquote($input-type-hover), comma);
+}
+$all-text-inputs-hover: $unquoted-inputs-list-hover;
+$inputs-list-focus: 'input[type="email"]:focus',
+                    'input[type="number"]:focus',
+                    'input[type="password"]:focus',
+                    'input[type="search"]:focus',
+                    'input[type="tel"]:focus',
+                    'input[type="text"]:focus',
+                    'input[type="url"]:focus',
+                    'input[type="color"]:focus',
+                    'input[type="date"]:focus',
+                    'input[type="datetime"]:focus',
+                    'input[type="datetime-local"]:focus',
+                    'input[type="month"]:focus',
+                    'input[type="time"]:focus',
+                    'input[type="week"]:focus';
+$unquoted-inputs-list-focus: ();
+@each $input-type-focus in $inputs-list-focus {
+  $unquoted-inputs-list-focus: append($unquoted-inputs-list-focus, unquote($input-type-focus), comma);
+}
+$all-text-inputs-focus: $unquoted-inputs-list-focus;

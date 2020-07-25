@@ -1,0 +1,222 @@
+////
+/// Outputs grid item modifiers
+///
+/// @param {Number} $cols - Number of columns that the area spans
+////
+@mixin setup-grid-item-modifiers($cols) {
+  @for $i from 0 through $cols {
+    @if $grid-ie11-support {
+      @for $j from 1 through $cols {
+        @if $j > $i and $j not 2 {
+          /* stylelint-disable */
+          @include m('start-'+$i+'-end-'+$j) {
+            grid-column-start: $i+1;
+            grid-column-end: $j+1;
+          }
+          /* stylelint-enable */
+        }
+      }
+
+      // Need to define rows for IE11, using $cols even if unrelated
+      @for $j from 1 through $cols {
+        @include m('row-' + $j) {
+          grid-row: $j;
+        }
+      }
+    } @else {
+      @if $i < $cols - 1 {
+        @include m('start-' + $i) {
+          /* autoprefixer: off */
+          grid-column-start: $i + 1;
+        }
+      }
+      @if $i >= 2 {
+        @include m('end-' + $i) {
+          /* autoprefixer: off */
+          grid-column-end: $i + 1;
+        }
+      }
+
+      @if $i >= 2 {
+        @include m('span-' + $i) {
+          /* autoprefixer: off */
+          grid-column-start: span $i;
+        }
+      }
+    }
+  }
+}
+
+////
+/// Ouputs an IE11-friendly auto-placement grid
+///
+/// @param {Number} $column-gap - Column gap size in pixels
+/// @param {Number} $column-gap-big - Column gap (big) size in pixels
+/// @param {Number} $column-gap-bigger - Column gap (bigger) size in pixels
+/// @param {Number} $row-gap - Row gap size in pixels
+/// @param {Number} $row-gap-big - Row gap (big) size in pixels
+/// @param {Number} $row-gap-bigger - Row gap (bigger) size in pixels
+/// @param {String} $column-gap-big-bp - Breakpoint name for the big column gap
+/// @param {String} $column-gap-bigger-bp - Breakpoint name for the bigger column gap
+/// @param {Map} $bp-map - Map of breakpoint names (key) and corresponding number of columns ($value)
+////
+@mixin setup-auto-grid-modifier($column-gap, $column-gap-big, $column-gap-bigger, $row-gap, $row-gap-big, $row-gap-bigger, $column-gap-big-bp, $column-gap-bigger-bp, $bp-map) {
+  @include critical-ie-edge {
+    display: flex;
+    flex-wrap: wrap;
+    margin: {
+      right: -$column-gap;
+      bottom: -$column-gap;
+    }
+    overflow: hidden;
+
+    @include bp($column-gap-big-bp) {
+      margin: {
+        right: -$column-gap-big;
+        bottom: -$column-gap-big;
+      }
+    }
+
+    @include bp($column-gap-bigger-bp) {
+      margin: {
+        right: -$column-gap-bigger;
+        bottom: -$column-gap-bigger;
+      }
+    }
+  }
+
+  @supports (display: grid) {
+    /* autoprefixer: off */
+    display: grid;
+    grid: {
+      column-gap: $column-gap;
+      row-gap: $row-gap;
+      template: {
+        columns: repeat(1, 1fr);
+        rows: auto;
+      }
+    }
+    margin: 0;
+    overflow: visible;
+
+    @each $bp, $col in $bp-map {
+      @include bp($bp) {
+        grid: {
+          column-gap: $column-gap;
+          row-gap: $row-gap;
+          template: {
+            columns: repeat($col, 1fr);
+            rows: auto;
+          }
+        }
+      }
+    }
+
+    @include bp($column-gap-big-bp) {
+      /* autoprefixer: off */
+      grid: {
+        column-gap: $column-gap-big;
+        row-gap: $row-gap-big;
+        template-rows: auto;
+      }
+    }
+
+    @include bp($column-gap-bigger-bp) {
+      /* autoprefixer: off */
+      grid: {
+        column-gap: $column-gap-bigger;
+        row-gap: $row-gap-bigger;
+      }
+    }
+  }
+
+  > * {
+    @include critical-ie-edge {
+      width: 100%;
+      border: 0 solid transparent;
+      border-width: 0 $column-gap $row-gap 0;
+
+      @include bp($column-gap-big-bp) {
+        border-width: 0 $column-gap-big $row-gap-big 0;
+      }
+
+      @include bp($column-gap-bigger-bp) {
+        border-width: 0 $column-gap-bigger $row-gap-bigger 0;
+      }
+
+      @each $bp, $col in $bp-map {
+        @include bp($bp) {
+          width: calc(100% / #{$col});
+        }
+      }
+    }
+
+    @supports (display: grid) {
+      width: auto;
+      border: 0;
+    }
+  }
+}
+
+////
+/// Outputs a CSS calc value that represents the width of a grid span
+///
+/// @param {Number} $span - Number of columns to span
+/// @param {Number} $total - Total number of columns in the grid
+/// @param {Number} $gap - Size of the grid gutter expressed in pixels
+/// @param {Bool} $negative - Use `true` to output a negative value
+/// @param {Bool} $margin - Use `true` to add an external gutter to the outputed value
+///
+/// @return {Number} - Width of span represented by a CSS calc
+////
+@function span($span, $total, $gap: $gutter, $negative: false, $margin: false) {
+  $gap-multiplier: ($span - 1);
+  $gap-eq: $gap * $gap-multiplier;
+
+  @if (type-of($margin) == 'string') {
+    $gap-eq: $margin;
+  } @else if ($margin) {
+    $gap-multiplier: $span;
+    $gap-eq: $gap * $gap-multiplier;
+  }
+
+  @if ($negative) {
+    @return calc((((100% - #{$gap * ($total - 1)}) / #{$total} ) * #{$span} + #{$gap-eq}) * -1);
+  } @else {
+    @return calc(((100% - #{$gap * ($total - 1)}) / #{$total} ) * #{$span} + #{$gap-eq});
+  }
+}
+
+////
+/// Sets up grid to help autoprifixer build IE 10-11 fallback
+///
+/// @param {string|boolean} $bp-name - Name of the breakpoint or false
+/// @param {string|boolean} $template-areas - Template areas or false
+////
+@mixin grid-setup($bp-name: false, $template-areas: false) {
+  $_bp: bp-get($bp-name);
+  grid-template-rows: auto;
+
+  @if ($_bp >= bp-get('grid-big') and $_bp < bp-get('grid-bigger')) {
+    grid: {
+      gap: $gutter-big;
+      template-columns: repeat($grid-cols-big, 1fr);
+    }
+
+  } @else if ($_bp >= bp-get('grid-bigger')) {
+    grid: {
+      gap: $gutter-bigger;
+      template-columns: repeat($grid-cols-bigger, 1fr);
+    }
+
+  } @else {
+    grid: {
+      gap: $gutter;
+      template-columns: repeat($grid-cols, 1fr);
+    }
+  }
+
+  @if ($template-areas) {
+    grid-template-areas: $template-areas;
+  }
+}

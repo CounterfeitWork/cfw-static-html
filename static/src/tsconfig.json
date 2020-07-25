@@ -1,0 +1,12 @@
+{
+  "extends": "./../../tsconfig.json",
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "module": "esnext",
+    "types": ["@types/webpack-env"],
+    "lib": ["es2018", "dom", "WebWorker", "dom.iterable"],
+    "downlevelIteration": true,
+    "target": "es5"
+  },
+  "files": ["index.ts"]
+}

@@ -1,0 +1,56 @@
+////
+/// Libs
+////
+@import '~breakpoint-sass/stylesheets/breakpoint';
+
+////
+/// Measures
+////
+
+$checkbox-size-s: 10px;
+
+////
+/// Breaking points
+////
+@import '../../config/css-breakpoints-config.json';
+
+////
+/// Grid
+////
+@import '../../config/css-grid-config.json';
+
+////
+/// Transitions
+////
+
+// ...
+
+////
+/// Colors
+////
+@import '../../config/css-colors-config.json';
+
+////
+/// Fonts
+////
+
+// Font weights
+$font-weight-regular: 400;
+$font-weight-bold: 400;
+
+// Fonts stacks
+$text-font-family: 'UniversLTStd', sans-serif;
+$text-font-weight: $font-weight-regular;
+$titles-font-family: $text-font-family;
+$titles-font-weight: $font-weight-bold;
+
+////
+/// Mixins and functions
+////
+@import '../modules/all';
+
+// ui/form color vars
+// NOTE: keep at bottom of file
+$color-input-valid: color-get('black');
+$color-input-invalid: red;
+$color-input-placeholder: rgba(0, 0, 0, .4);

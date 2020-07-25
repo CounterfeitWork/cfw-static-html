@@ -1,0 +1,10 @@
+{
+  "grid-ie11-support": true,
+  "gutter": "10px",
+  "gutter-big": "20px",
+  "gutter-bigger": "30px",
+  "grid-col-max-width": "120px",
+  "grid-cols": 6,
+  "grid-cols-big": 12,
+  "grid-cols-bigger": 12
+}
