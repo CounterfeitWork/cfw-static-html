@@ -1,0 +1,9 @@
+.DS_Store
+npm-debug.log
+node_modules
+*.sass-cache
+.lighthouseci
+/static/dist
+*.html
+site/partials/head/styles-hashed.pug
+site/partials/scripts-hashed.pug

@@ -1,0 +1,33 @@
+{
+  "name": "project-name",
+  "private": true,
+  "version": "1.0.0",
+  "description": "<Project description>",
+  "repository": "<Repo URL>",
+  "author": "Principal Studio",
+  "config": {
+    "ssh_dev": "<ssh>:<path>",
+    "principal-static-html-boilerplate-version": "1.3.3"
+  },
+  "engines" : {
+    "node" : "12.18.1"
+  },
+  "scripts": {
+    "build-dev": "webpack --config ./static/src/config/webpack.config.js --mode=development --appType=static",
+    "build-prod": "webpack --config ./static/src/config/webpack.config.js --mode=production --appType=static",
+    "start-watch": "webpack --watch --config ./static/src/config/webpack.config.js --mode=development --appType=static",
+    "start-dev": "webpack-dev-server --config ./static/src/config/webpack.config.js --mode=development --appType=static --devServer=true",
+    "zip": "zip ../$npm_package_name-$(date \"+%s\").zip -r ./dist index.html",
+    "deploy-dev": "rsync -r static/dist $npm_package_config_ssh_dev/static; rsync -v --stats --progress index.html ${npm_package_config_ssh_dev}",
+    "open-repo": "open $npm_package_repository_url",
+    "test-chrome": "jest --config=./test/jest.config.js --browser=chromium --detectOpenHandles",
+    "test-firefox": "jest --config=./test/jest.config.js --browser=firefox --detectOpenHandles",
+    "test-chrome-ci": "jest --config=./test/jest.config.js --browser=chromium --detectOpenHandles --max-workers 2 --passWithNoTests",
+    "test-firefox-ci": "jest --config=./test/jest.config.js --browser=firefox --detectOpenHandles --max-workers 2 --passWithNoTests",
+    "install": "if [ ! -d tmp -a ! -d app/static ]; then git clone git@github.com:principalstudio/principal-frontend-boilerplate.git tmp; fi",
+    "postinstall": "if [ -f tmp/package.json ]; then json-merger ./package.json ./tmp/package.json -o ./package.json; rm -f ./tmp/package*.json; npm i; npm i pug; mv ./tmp/layout.pug ./layout.pug; mv ./tmp/static ./static; mv ./tmp/site ./site; mv ./tmp/mixins ./mixins; mv ./tmp/test.js ./test.js; mv ./tmp/.github/workflows/optimize-images.yml ./.github/workflows; mv ./tmp/.github/workflows/generate-favicons.yml ./.github/workflows; mv ./tmp/tsconfig.json .; rm -Rf ./tmp; fi"
+  },
+  "devDependencies": {
+    "json-merger": "^1.1.1"
+  }
+}
