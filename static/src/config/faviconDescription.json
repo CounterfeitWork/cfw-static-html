@@ -1,6 +1,6 @@
 {
   "masterPicture": "static/src/images/favicon-master.png",
-  "iconsPath": "/images/favicons",
+  "iconsPath": "/static/dist/images/favicons",
   "design": {
     "ios": {
       "pictureAspect": "noChange",
