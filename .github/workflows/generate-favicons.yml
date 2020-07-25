@@ -1,8 +1,9 @@
 name: Generate favicons
 on:
   pull_request:
-    paths:
-      - 'app/static/src/images/favicon-master.png'
+    # paths:
+    #   - 'app/static/src/images/favicon-master.png'
+    #   - 'static/src/images/favicon-master.png'
 jobs:
   build:
     name: Generate favicons
