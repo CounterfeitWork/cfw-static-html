@@ -27,8 +27,14 @@ jobs:
 
       - name: Generate favicon images
         run: |
-          real-favicon generate ./app/static/src/config/faviconDescription.json ./app/static/src/config/faviconData.json ./app/static/src/images/favicons
-          real-favicon inject ./app/static/src/config/faviconData.json ./app/static/src/images/favicons ./app/static/src/config/favicons-template.pug
+          STATIC_PATH="./app/static"
+
+          if [ ! -d "$STATIC_PATH" ]; then
+            STATIC_PATH="./static"
+          fi
+
+          real-favicon generate $STATIC_PATH/src/config/faviconDescription.json $STATIC_PATH/src/config/faviconData.json $STATIC_PATH/src/images/favicons
+          real-favicon inject $STATIC_PATH/src/config/faviconData.json $STATIC_PATH/src/images/favicons $STATIC_PATH/src/config/favicons-template.pug
 
       - name: Commit changes and push
         run: |
