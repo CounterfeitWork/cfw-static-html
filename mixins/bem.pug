@@ -1,0 +1,64 @@
+//-
+//- BEM-style block
+//-
+mixin b(b, tag='div', m=false, bp=false)
+  if Array.isArray(b)
+    each block in b
+      if !attributes.class
+        - attributes.class = block
+      else
+        - attributes.class += ' ' + block
+  else
+    if !attributes.class
+      - attributes.class = b
+    else
+      - attributes.class += ' ' + b
+
+  - const _tag = Array.isArray(tag) ? 'div' : tag
+  - const _m = Array.isArray(tag) ? tag : m
+  - const _bp = typeof m === 'object' && !Array.isArray(m) ? m : bp
+
+  if _m
+    if Array.isArray(_m)
+      each mod in _m
+        - attributes.class += ' ' + b + '--' + mod
+    else
+      - attributes.class += ' ' + b + '--' + _m
+
+  if _bp
+    each val, key in _bp
+      - attributes.class += ' ' + b + '@' + key + '--' + val
+
+  #{_tag}()&attributes(attributes)
+    block
+
+//-
+//- BEM-style element with modifier and breakpoint-modifier
+//-
+mixin e(b, e, tag='div', m=false, bp=false)
+  if attributes.class
+    - attributes.class += ' ' + b + '__' + e
+  else
+    - attributes.class = b + '__' + e
+
+  - const _tag = Array.isArray(tag) ? 'div' : tag
+  - const _m = Array.isArray(tag) ? tag : m
+  - const _bp = typeof m === 'object' && !Array.isArray(m) ? m : bp
+
+  if _m
+    if Array.isArray(_m)
+      each mod in _m
+        - attributes.class += ' ' + b + '__' + e + '--' + mod
+    else
+      - attributes.class += ' ' + b + '__' + e + '--' + _m
+
+  if _bp
+    each val, key in _bp
+      if Array.isArray(val)
+        each mod in val
+          - attributes.class += ' ' + b + '__' + e + '@' + key + '--' + mod
+      else
+        - attributes.class += ' ' + b + '__' + e + '@' + key + '--' + val
+
+  #{_tag}()&attributes(attributes)
+    block

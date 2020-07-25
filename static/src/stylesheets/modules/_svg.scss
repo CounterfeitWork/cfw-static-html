@@ -1,0 +1,13 @@
+////
+/// Constructs $all-svg-shapes var to be used as a selector
+////
+$svg-shapes-list: 'rect',
+                  'circle',
+                  'ellipse',
+                  'polygon',
+                  'path';
+$unquoted-svg-shapes-list: ();
+@each $svg-shape-type in $svg-shapes-list {
+  $unquoted-svg-shapes-list: append($unquoted-svg-shapes-list, unquote($svg-shape-type), comma);
+}
+$all-svg-shapes: $unquoted-svg-shapes-list;

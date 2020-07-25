@@ -1,0 +1,195 @@
+//-
+//- Responsive image
+//-
+//- In opt object:
+//- image: An image object return by the api.
+//- sizes: The sizes of the image for the responsive images. You need to refer to the breakpoint and the grid width. For example { base: 12, 'bp-3': 6 };
+//- loading: By default 'lazy'. You can refer to this article https://web.dev/native-lazy-loading/
+//-
+mixin img(opt = {})
+  - const apiType = PrApi ? PrApi.getType() : 'static'
+  - let src
+  - let imgSizes
+  - let width
+  - let height
+  - const baseUrl = PrApi ? PrApi.getMediasBaseUrl() : '';
+
+  if apiType === 'wp'
+    - src = opt.image.sizes ? opt.image.sizes.medium_large : opt.image.url
+    - width = opt.image.sizes ? opt.image.sizes['medium_large-width'] : null
+    - height = opt.image.sizes ? opt.image.sizes['medium_large-height'] : null
+    - imgSizes = opt.image.sizes || null
+  else if apiType === 'wt'
+    - src = opt.image.renditions ? `${baseUrl}${opt.image.renditions.medium.url}` : `${baseUrl}${opt.image.source.url}`
+    - width = opt.image.renditions ? opt.image.renditions.medium.width : null
+    - height = opt.image.renditions ? opt.image.renditions.medium.height : null
+    - imgSizes = opt.image.renditions || null
+  else
+    - src = opt.image.url
+    - width = null
+    - height = null
+    - imgSizes = opt.image.sizes || null
+
+  - const loading = opt.loading ? opt.loading : 'lazy'
+  - const srcset =  imgSizes ? getSrcset(imgSizes, apiType, baseUrl) : null
+  - const sizes =  opt.sizes ? getSizes(opt.sizes) : null
+
+  if loading === 'lazy'
+    noscript.loading-lazy
+      img(
+        loading=loading
+        srcset=srcset
+        sizes=sizes
+        src=src
+        alt=opt.image.alt
+        title=opt.image.title
+        width=width
+        height=height
+      )&attributes(attributes)
+  else
+    img(
+      loading=loading
+      srcset=srcset
+      sizes=sizes
+      src=src
+      alt=opt.image.alt
+      title=opt.image.title
+    )&attributes(attributes)
+
+-
+  // Get srcset from ACF `sizes` array
+  getSrcset = function(sizes, apiType, baseUrl, filter, removeFiltered) {
+    filter = filter || '';
+    removeFiltered = removeFiltered || false;
+    let srcset = '';
+    let srcSetArr;
+
+    if (typeof sizes !== 'object' || !sizes) {
+      return null;
+    }
+
+    for (const prop in sizes) {
+      if (filter) {
+        if (removeFiltered && removeFiltered.includes(prop)) {
+          break;
+        } else if (!removeFiltered && !removeFiltered.includes(prop)) {
+          break;
+        }
+      }
+
+      if (apiType === 'wp') {
+        if (!prop.includes('-width') && !prop.includes('-height')) {
+          srcset += `${baseUrl}${sizes[prop]}`;
+        } else if (prop.includes('-width')) {
+          srcset += ` ${sizes[prop]}w, `;
+        }
+      } else if (apiType === 'wt') {
+        srcset += `${baseUrl}${sizes[prop].url} ${sizes[prop].width}w, `;
+      }
+    }
+
+    // remove duplicates (╯°□°)╯︵ ┻━┻
+    srcSetArr = srcset.split(',');
+    srcSetArr = [...new Set(srcSetArr)];
+    srcset = srcSetArr.join(',');
+
+    // trim last comma
+    srcset = srcset.trim().replace(/,+$/g, '');
+
+    return srcset;
+  }
+
+  // Get sizes from cols
+  function getSizes(span) {
+    if (!span) return null;
+
+    const grid = require('../static/src/config/css-grid-config.json');
+    const breakpoints = require('../static/src/config/css-breakpoints-config.json');
+    const gutterPx = grid.gutter;
+    const gutter = parseInt(gutterPx);
+    const gutterBigPx = grid['gutter-big'];
+    const gutterBig = parseInt(gutterBigPx);
+    const gutterBiggerPx = grid['gutter-bigger'];
+    const gutterBigger = parseInt(gutterBiggerPx);
+    const colMaxWidth = grid['grid-col-max-width'];
+    const colMaxWidthInt = parseInt(colMaxWidth);
+    const cols = grid['grid-cols'];
+    const colsBig = grid['grid-cols-big'];
+    const colsBigger = grid['grid-cols-bigger'];
+    const bpBig = breakpoints['grid-big'];
+    const bpBigInt = parseInt(bpBig);
+    const bpBigger = breakpoints['grid-bigger'];
+    const bpBiggerInt = parseInt(bpBigger);
+    const gridWidth = breakpoints['grid-width'];
+    const gridWidthInt = parseInt(gridWidth);
+    const gridWidthIsPercent = gridWidth.includes('%');
+    let sizes = [];
+    let imageMaxWidth;
+
+    if (typeof span === 'object') {
+      for (var key in span) {
+        let val = parseInt(span[key]);
+        let bp;
+        let bpInt;
+        let bpCols;
+        let bpGutter;
+        let bpGutterInt;
+        let calc;
+
+        if (key === 'base') {
+          bpInt = 0;
+        } else {
+          bp = breakpoints[key];
+          bpInt = parseInt(bp);
+        }
+
+        if (bpInt >= bpBiggerInt) {
+          bpCols = colsBigger;
+          bpGutter = gutterBiggerPx;
+          bpGutterInt = gutterBigger;
+        } else if (bpInt >= bpBigInt && bpInt < bpBiggerInt) {
+          bpCols = colsBig;
+          bpGutter = gutterBigPx;
+          bpGutterInt = gutterBig;
+        } else {
+          bpCols = cols;
+          bpGutter = gutterPx;
+          bpGutterInt = gutter;
+        }
+
+        if (!gridWidthIsPercent && bpInt === gridWidthInt) {
+          let imageMaxWidth = (colMaxWidthInt * val + (bpGutterInt * (val - 1))) + 'px';
+          sizes.push(`(min-width:${gridWidth})${imageMaxWidth})`);
+
+        } else {
+          calc = `calc((100vw - ((${bpCols} + 1) * ${bpGutter})) / ${bpCols} * ${val} + ((${val} - 1) * ${bpGutter}))`;
+
+          if (key === 'base') {
+            sizes.push(calc);
+          } else if (bp.includes('max-width ')) {
+            sizes.push(`(${bp})${calc}`);
+          } else {
+            sizes.push(`(min-width:${bp})${calc}`);
+          }
+        }
+      }
+
+    } else {
+
+      // full width (if grid has a fixed max width)
+      if (!gridWidthIsPercent) {
+        imageMaxWidth = (colMaxWidthInt * span + (gutterBig * (span - 1))) + 'px';
+        sizes.push(`(min-width:${gridWidth})${imageMaxWidth}`);
+      }
+
+      // responsive w/ full amount of cols
+      sizes.push(`(min-width:${bpBig})calc((100vw - ((${colsBig} + 1) * ${gutterBigPx})) / ${colsBig} * ${span} + ((${span} - 1) * ${gutterBigPx}))`);
+    }
+
+    if (typeof span === 'object' && (!span.base || Number.isInteger(span))) {
+      // default (smallest screen)
+      sizes.push(`calc(100vw - (${gutterPx} * 2))`);
+    }
+
+    return sizes.reverse().join(',');
+  }

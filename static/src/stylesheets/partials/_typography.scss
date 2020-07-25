@@ -1,0 +1,162 @@
+// TODO: Take over typography rules bellow
+
+////
+/// Font sizes
+////
+
+// Text
+
+$text-1-font-size: 12px;
+$text-1-lineheight: 16px;
+$text-1-letterspacing: 0;
+$text-1: ($text-1-font-size, $text-1-lineheight, $text-1-letterspacing);
+
+$text-2-font-size: 14px;
+$text-2-lineheight: 20px;
+$text-2-letterspacing: 0;
+$text-2: ($text-2-font-size, $text-2-lineheight, $text-2-letterspacing);
+
+$text-3-font-size: 16px;
+$text-3-lineheight: 20px;
+$text-3-letterspacing: 0;
+$text-3: ($text-3-font-size, $text-3-lineheight, $text-3-letterspacing);
+
+$text-4-font-size: 20px;
+$text-4-lineheight: 1.25;
+$text-4-letterspacing: 0;
+$text-4: ($text-4-font-size, $text-4-lineheight, $text-4-letterspacing);
+
+// Titles
+
+$title-1-font-size: 20px;
+$title-1-lineheight: 20px;
+$title-1-letterspacing: 0;
+$title-1: ($title-1-font-size, $title-1-lineheight, $title-1-letterspacing);
+
+$title-2-font-size: 24px;
+$title-2-lineheight: 28px;
+$title-2-letterspacing: 0;
+$title-2: ($title-2-font-size, $title-2-lineheight, $title-2-letterspacing);
+
+$title-3-font-size: 30px;
+$title-3-lineheight: 30px;
+$title-3-letterspacing: 0;
+$title-3: ($title-3-font-size, $title-3-lineheight, $title-3-letterspacing);
+
+$title-4-font-size: 36px;
+$title-4-lineheight: 36px;
+$title-4-letterspacing: 0;
+$title-4: ($title-4-font-size, $title-4-lineheight, $title-4-letterspacing);
+
+$title-5-font-size: 50px;
+$title-5-lineheight: 50px;
+$title-5-letterspacing: 0;
+$title-5: ($title-5-font-size, $title-5-lineheight, $title-5-letterspacing);
+
+$title-6-font-size: 60px;
+$title-6-lineheight: 60px;
+$title-6-letterspacing: 0;
+$title-6: ($title-6-font-size, $title-6-lineheight, $title-6-letterspacing);
+
+////
+/// Base typography rules
+////
+
+:root {
+  font-family: $text-font-family;
+  font-weight: $font-weight-regular;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: color-get('black');
+
+  // OpenType features
+  // @see: http://practice.typekit.com/lesson/caring-about-opentype-features/
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures, contextual;
+  -moz-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+  -ms-font-feature-settings: 'kern', 'liga', 'clig', 'alt';
+  -webkit-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+  font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+}
+
+body {
+  @include typography-setup($text-3..., $margins: false);
+}
+
+#{$all-headings} {
+  @include contain-margins;
+  display: block;
+  font-weight: $font-weight-bold;
+
+  &.p {
+    font-size: inherit;
+    font-family: $text-font-family;
+    font-weight: $font-weight-regular;
+
+    &.no-margins {
+      margin: 0;
+    }
+  }
+}
+
+#{$all-md-block-els} {
+  @include contain-margins;
+  margin: 1em 0;
+  overflow-wrap: break-word;
+}
+
+h1, .h1 {
+  @include typography-setup($title-3...);
+  display: block;
+  margin: .8em 0;
+
+  @include bp('1') {
+    @include typography-setup($title-4...);
+  }
+
+  @include bp('2') {
+    @include typography-setup($title-5...);
+  }
+
+  @include bp('3') {
+    @include typography-setup($title-6...);
+  }
+}
+
+h2, .h2 {
+  @include typography-setup($title-2...);
+  display: block;
+  margin: {
+    top: 2em;
+    bottom: 1.25em;
+  }
+
+  @include bp('2') {
+    margin: {
+      top: 2em;
+      bottom: 1.75em;
+    }
+    @include typography-setup($title-3...);
+  }
+}
+
+h3, .h3 {
+  @include typography-setup($title-2...);
+  display: block;
+  margin: {
+    top: 2em;
+    bottom: 1.25em;
+  }
+}
+
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  @include typography-setup($text-2...);
+  display: block;
+  margin: 1em 0;
+
+  @include bp('2') {
+    @include typography-setup($text-3...);
+  }
+}

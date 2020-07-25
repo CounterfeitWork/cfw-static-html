@@ -1,0 +1,6 @@
+//-
+//- Scalable inline SVG
+//-
+mixin svg(w,h)
+  .svg-inline-container.svg-inline-container--scalable(style=`padding-bottom:${(100 * h/w)}%;`)&attributes(attributes)
+    block

@@ -1,0 +1,79 @@
+@include m('main') {
+  /* prettier-ignore */
+  $grid-main-template-area: 'a a a a a a'
+                              'b b b b b b'
+                              'c c c c c c'
+                              'd d d d d d'
+                              'e e e e e e'
+                              'f f f f f f';
+
+  /* prettier-ignore */
+  $grid-main-template-area-big: 'a a a a a a a a . b b b'
+                                  'c c c c c c c c c c c c'
+                                  'd d d d d . . . . . . .'
+                                  'e e e e e e e e e e e e'
+                                  'f f f f f . . . . . . .';
+
+  @include grid-setup(false, $grid-main-template-area);
+  padding-bottom: $gutter * 6;
+  row-gap: $gutter * 6;
+
+  @include bp('grid-big') {
+    @include grid-setup('grid-big', $grid-main-template-area-big);
+    grid-row-gap: $gutter-big * 3;
+    padding-bottom: $gutter-big * 3;
+  }
+
+  @include bp('grid-bigger') {
+    @include grid-setup('grid-bigger', $grid-main-template-area-big);
+    grid-row-gap: $gutter-bigger * 3;
+    padding-bottom: $gutter-bigger * 3;
+  }
+}
+
+@include e('area') {
+  @include contain-margins;
+
+  @include bp('grid-big') {
+    margin: 0;
+  }
+
+  @include m('main-map') {
+    grid-area: a;
+  }
+
+  @include m('main-globe') {
+    grid-area: b;
+  }
+
+  @include m('main-collection') {
+    grid-area: c;
+    @include setup-auto-grid-modifier(
+      $column-gap: $gutter,
+      $column-gap-big: $gutter-big,
+      $column-gap-bigger: $gutter-bigger,
+      $row-gap: $gutter * 6,
+      $row-gap-big: $gutter-big * 3,
+      $row-gap-bigger: $gutter-bigger * 3,
+      $column-gap-big-bp: 'grid-big',
+      $column-gap-bigger-bp: 'grid-bigger',
+      $bp-map: (
+        '0': 1,
+        '5': 2,
+        '6': 3,
+      )
+    );
+  }
+
+  @include m('main-text') {
+    grid-area: d;
+  }
+
+  @include m('main-image-loading-lazy') {
+    grid-area: e;
+  }
+
+  @include m('main-form') {
+    grid-area: f;
+  }
+}

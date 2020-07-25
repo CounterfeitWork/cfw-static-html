@@ -1,0 +1,61 @@
+////
+/// Libs
+////
+@import '~breakpoint-sass/stylesheets/breakpoint';
+
+////
+/// Measures
+////
+
+$checkbox-size-s: 10px;
+
+////
+/// Breaking points
+////
+// TODO: Edit file referenced bellow
+@import '../../config/css-breakpoints-config.json';
+
+////
+/// Grid
+////
+// TODO: Edit file referenced bellow
+@import '../../config/css-grid-config.json';
+
+////
+/// Transitions
+////
+
+// ...
+
+////
+/// Colors
+////
+// TODO: Edit file referenced bellow
+@import '../../config/css-colors-config.json';
+
+////
+/// Fonts
+////
+
+// TODO: Take over bellow
+
+// Font weights
+$font-weight-regular: 400;
+$font-weight-bold: 700;
+
+// Fonts stacks
+$text-font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+$text-font-weight: $font-weight-regular;
+$titles-font-family: $text-font-family;
+$titles-font-weight: $font-weight-bold;
+
+////
+/// Mixins and functions
+////
+@import '../modules/all';
+
+// ui/form color vars
+// NOTE: keep at bottom of file
+$color-input-valid: color-get('black');
+$color-input-invalid: red;
+$color-input-placeholder: rgba(0, 0, 0, .4);

@@ -1,0 +1,17 @@
+////
+/// Increases CSS specificity
+////
+@mixin increase-specificity {
+  &#{&} {
+    @content;
+  }
+}
+
+////
+/// Increase CSS specificity with shame
+////
+@mixin shame {
+  &#{&}#{&} {
+    @content;
+  }
+}

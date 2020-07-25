@@ -1,0 +1,154 @@
+////
+/// Contructs BEM block selector
+///
+/// @param {String} $element - BEM block name
+////
+@mixin block($block) {
+  .#{$block} {
+    @content;
+  }
+}
+
+////
+/// Contructs BEM element selector
+///
+/// @param {String} $element - BEM element name
+////
+@mixin element($element) {
+  &__#{$element} {
+    @content;
+  }
+}
+
+////
+/// Contructs BEM modifier selector
+///
+/// @param {String} $modifier - BEM modifier name
+////
+@mixin modifier($modifier) {
+  &--#{$modifier} {
+    @content;
+  }
+}
+
+////
+/// Contructs BEM parent modifier selector
+///
+/// @param {String} $b - Parent BEM block name
+/// @param {String} $m - Parent BEM modifier name
+/// @param {Bool|String} $e - Parent BEM element name
+/// @param {Bool|String} $not - false or `:not` to wrap parent BEM selector in a `:not()` pseudo-class
+////
+@mixin parent-modifier($b, $m, $e: false, $not: false) {
+  @if $e {
+    $selector: '.' + $b + '__' + $e + '--' + $m;
+
+    @if $not == ':not' {
+      $selector: '.' + $b + '__' + $e + ':not(.' + $b + '__' + $e + '--' + $m + ')';
+    }
+
+    #{$selector} & {
+      @content;
+    }
+
+  } @else {
+    $selector: '.' + $b + '--' + $m;
+
+    @if $not == ':not' {
+      $selector: '.' + $b + ':not(.' + $b + '--' + $m + ')';
+    }
+
+    #{$selector} & {
+      @content;
+    }
+  }
+}
+
+////
+/// Contructs BEM-type breakpoint modifier selector
+///
+/// @see: http://csswizardry.com/2015/08/bemit-taking-the-bem-naming-convention-a-step-further/
+///
+/// @param {String|List} $breakpoint - Breakpoint name or list of names
+/// @param {String|Bool} $modifier - BEM modifier name or false
+////
+@mixin modifier-bp($breakpoint, $modifier: false) {
+  @each $point in $breakpoint {
+    &\@#{$point} {
+      @include bp($point) {
+        @if ($modifier) {
+          // stylelint-disable
+          @include modifier($modifier) {
+            @content;
+          }
+          // stylelint-enable
+        } @else {
+          @content;
+        }
+      }
+    }
+  }
+}
+
+////
+/// @alias block
+////
+@mixin b($block) {
+  @include block($block) {
+    @content;
+  }
+}
+
+////
+/// @alias element
+////
+@mixin e($element) {
+  @include element($element) {
+    @content;
+  }
+}
+
+////
+/// @alias modifier
+////
+@mixin m($modifier) {
+  @include modifier($modifier) {
+    @content;
+  }
+}
+
+////
+/// @alias parent-modifier
+////
+@mixin parent-m($b, $m, $e: false, $not: false) {
+  @include parent-modifier($b, $m, $e, $not) {
+    @content;
+  }
+}
+
+////
+/// @alias parent-modifier
+////
+@mixin b-m($b, $m, $e: false, $not: false) {
+  @include parent-modifier($b, $m, $e, $not) {
+    @content;
+  }
+}
+
+////
+/// @alias modifier-bp
+////
+@mixin m-bp($breakpoint, $modifier: false) {
+  @include modifier-bp($breakpoint, $modifier) {
+    @content;
+  }
+}
+
+////
+/// @alias modifier-bp
+////
+@mixin bp-m($breakpoint, $modifier: false) {
+  @include modifier-bp($breakpoint, $modifier) {
+    @content;
+  }
+}

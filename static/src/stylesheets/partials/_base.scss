@@ -1,0 +1,126 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+
+  &.is-waiting {
+    * {
+      cursor: wait !important;
+    }
+  }
+
+  // Define current breakpoint
+  &::before {
+    content: '0';
+    display: none;
+  }
+
+  @include bp('1') {
+    &::before {
+      content: '1';
+    }
+  }
+
+  @include bp('2') {
+    &::before {
+      content: '2';
+    }
+  }
+
+  @include bp('3') {
+    &::before {
+      content: '3';
+    }
+  }
+
+  @include bp('4') {
+    &::before {
+      content: '4';
+    }
+  }
+
+  @include bp('5') {
+    &::before {
+      content: '5';
+    }
+  }
+
+  @include bp('6') {
+    &::before {
+      content: '6';
+    }
+  }
+
+  @include bp('7') {
+    &::before {
+      content: '7';
+    }
+  }
+}
+
+img[loading='lazy'] {
+  width: auto;
+  height: auto;
+}
+
+address {
+  font-style: normal;
+}
+
+.link-stretch {
+  height: auto;
+  position: relative;
+
+  a {
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+    }
+  }
+}
+
+// Links
+
+@include links-styles;
+
+a.link-inverted,
+span.link.link-inverted {
+  @include link-styles-inverted;
+}
+
+.links-inverted a {
+  @include link-styles-inverted;
+}
+
+// Visually hidden
+
+.is-hidden {
+  @include hidden;
+}
+
+.is-hidden-on-grid-small {
+  @include bp('grid-small') {
+    @include hidden;
+  }
+}
+
+.is-hidden-on-grid-big {
+  @include bp('grid-big') {
+    @include hidden;
+  }
+}
+
+.is-hidden-on-grid-bigger {
+  @include bp('grid-bigger') {
+    @include hidden;
+  }
+}

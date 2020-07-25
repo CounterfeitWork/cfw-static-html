@@ -1,0 +1,75 @@
+name: Optimize images
+on:
+  pull_request:
+    paths:
+      - '**.jpg'
+      - '**.png'
+jobs:
+  create-webp-files:
+    name: Generate webp files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Install webp
+        run: sudo apt-get install webp
+
+      - name: Install jq
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y jq
+
+      - name: Prepare repo for commit
+        run: |
+          git config --global user.email 'github-actions-git-commit@users.noreply.github.com'
+          git config --global user.name 'Github Actions'
+          git fetch origin pull/${{ github.event.pull_request.number }}/head:${{ github.event.pull_request.head.ref }}
+          git checkout ${{ github.event.pull_request.head.ref }}
+
+      - name: Generate webp files and commit
+        run: |
+          FILES_JSON=$(curl --header "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files)
+          NEW_FILES=0
+
+          for row in $(echo "${FILES_JSON}" | jq -r '.[] | @base64'); do
+            _jq() {
+              echo ${row} | base64 --decode | jq -r ${1}
+            }
+
+            FILENAME=$(_jq '.filename')
+
+            if [ -f "$FILENAME" ]; then
+              if [[ "$FILENAME" != app/static/src/images/favicon* ]]; then
+                if [[ "$FILENAME" == *.jpg || "$FILENAME" == *.jpeg ]]; then
+                  cwebp -quiet -q 80 "$FILENAME" -o "$FILENAME.webp";
+                  NEW_FILES=1
+                fi
+
+                if [[ "$FILENAME" == *.png ]]; then
+                  cwebp -quiet -lossless "$FILENAME" -o "$FILENAME.webp";
+                  NEW_FILES=1
+                fi
+              fi
+            fi
+          done
+
+          if [ "$NEW_FILES" -eq "1" ]; then
+            git add .
+            git commit -m 'Generate webp files'
+            git push origin ${{ github.event.pull_request.head.ref }}
+          fi
+  optimize:
+    name: calibreapp/image-actions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Compress Images
+        uses: calibreapp/image-actions@master
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          jpegQuality: '75'
+          jpegProgressive: false
+          pngQuality: '75'
+          ignorePaths: 'node_modules/**'

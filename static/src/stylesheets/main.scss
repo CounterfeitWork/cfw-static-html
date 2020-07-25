@@ -1,0 +1,9 @@
+////
+/// @see: http://thesassway.com/beginner/how-to-structure-a-sass-project
+////
+
+@import-normalize;
+//TODO: Choose normalize or sanitize (more agresive because normalize styles for a wide range of elements)
+//@import-sanitize;
+@import 'partials/all';
+@import 'components/all';

@@ -1,0 +1,98 @@
+@include b('grid') {
+  display: grid;
+  max-width: bp-get('grid-width');
+  margin: 0 auto;
+  padding: 0 $gutter;
+
+  // TODO: Remove or uncomment bellow
+  // FIXME: [PRFB-55] Find fix for notch support
+  // @see https://webkit.org/blog/7929/designing-websites-for-iphone-x/
+  // @see https://github.com/webpack-contrib/sass-loader/issues/528#issuecomment-362259216
+  // @supports (padding: max(0)) {
+  //   padding-left: m#{a}x(#{$gutter}, env(safe-area-inset-left));
+  //   padding-right: m#{a}x(#{$gutter}, env(safe-area-inset-right));
+  // }
+
+  // Grid Big
+  @include bp('grid-big') {
+    padding: 0 $gutter-big;
+
+    // FIXME: [PRFB-55] Find fix for notch support
+    // @supports (padding: max(0)) {
+    //   padding-left: m#{a}x(#{$gutter-big}, env(safe-area-inset-left));
+    //   padding-right: m#{a}x(#{$gutter-big}, env(safe-area-inset-right));
+    // }
+  }
+
+  // Grid Bigger
+  @include bp('grid-bigger') {
+    padding: 0 $gutter-bigger;
+
+    // FIXME: [PRFB-55] Find fix for notch support
+    // @supports (padding: max(0)) {
+    //   padding-left: m#{a}x(#{$gutter-bigger}, env(safe-area-inset-left));
+    //   padding-right: m#{a}x(#{$gutter-bigger}, env(safe-area-inset-right));
+    // }
+  }
+
+  // Sub grids (to be used in grid areas)
+  // TODO: Remove or uncomment bellow
+  // @include e('sub') {
+  //   @include setup-auto-grid-modifier(
+  //     $column-gap: $gutter,
+  //     $column-gap-big: $gutter-big,
+  //     $column-gap-bigger: $gutter-bigger,
+  //     $row-gap: 24px,
+  //     $row-gap-big: 30px,
+  //     $row-gap-bigger: 30px,
+  //     $column-gap-big-bp: 'grid-big',
+  //     $column-gap-bigger-bp: 'grid-bigger',
+  //     $bp-map: ('1': 2, '2': 3, '3': 4)
+  //   );
+
+  //   @include setup-auto-grid-modifier(
+  //     $column-gap: $gutter,
+  //     $column-gap-big: $gutter-big,
+  //     $column-gap-bigger: $gutter-bigger,
+  //     $row-gap: 24px,
+  //     $row-gap-big: 30px,
+  //     $row-gap-bigger: 30px,
+  //     $column-gap-big-bp: 'grid-big',
+  //     $column-gap-bigger-bp: 'grid-bigger',
+  //     $bp-map: ('1': 2, '2': 3)
+  //   );
+
+  //   @include setup-auto-grid-modifier(
+  //     $column-gap: $gutter,
+  //     $column-gap-big: $gutter-big,
+  //     $column-gap-bigger: $gutter-bigger,
+  //     $row-gap: 24px,
+  //     $row-gap-big: 30px,
+  //     $row-gap-bigger: 30px,
+  //     $column-gap-big-bp: 'grid-big',
+  //     $column-gap-bigger-bp: 'grid-bigger',
+  //     $bp-map: ('1': 2)
+  //   );
+
+  //   @include m-bp('grid-big', 'direction-row-reverse') {
+  //     flex-direction: row-reverse;
+  //     > :nth-child(odd) {
+  //       grid-column: 2;
+  //     }
+  //     > :nth-child(even) {
+  //       grid-row: 1;
+  //       grid-column: 1;
+  //     }
+  //   }
+  // }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  // Grid modifiers
+  @import 'header';
+  @import 'main';
+  @import 'footer';
+}
