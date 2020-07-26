@@ -48,3 +48,14 @@ $text-4: ($text-4-font-size, $text-4-lineheight, $text-4-letterspacing);
 body {
   @include typography-setup($text-3..., $margins: false);
 }
+
+#{$all-headings},
+strong,
+b {
+  font-weight: $font-weight-bold;
+}
+
+.typography-chinese {
+  font-family: $chinese-font-family;
+  word-break: keep-all;
+}

@@ -13,6 +13,11 @@ body {
     }
   }
 
+  &.theme-dark {
+    background-color: color-get('black');
+    color: color-get('white');
+  }
+
   // Define current breakpoint
   &::before {
     content: '0';
@@ -58,6 +63,12 @@ body {
   @include bp('7') {
     &::before {
       content: '7';
+    }
+  }
+
+  @include bp('8') {
+    &::before {
+      content: '8';
     }
   }
 }
