@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+
 @font-face {
   font: {
     family: 'UniversLTStd';
@@ -5,15 +7,5 @@
     style: normal;
   }
   src: url('~src/fonts/UniversLTStd.woff2') format('woff2'),
-       url('~src/fonts/UniversLTStd.woff') format('woff');
-}
-
-@font-face {
-  font: {
-    family: 'Noto Sans';
-    weight: 400;
-    style: normal;
-  }
-  src: url('~src/fonts/notosanstc-regular-webfont.woff2') format('woff2'),
-       url('~src/fonts/notosanstc-regular-webfont.woff') format('woff');
+    url('~src/fonts/UniversLTStd.woff') format('woff');
 }

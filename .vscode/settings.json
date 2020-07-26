@@ -5,5 +5,13 @@
     "statusBar.foreground": "#e7e7e7",
     "statusBarItem.hoverBackground": "#4d4d4d"
   },
-  "peacock.color": "#333"
+  "peacock.color": "#333",
+  "stylelint.config": {
+    "extends": "./static/src/config/.stylelintrc.json"
+  },
+  "eslint.options": {
+    "configFile": "./static/src/config/.eslintrc.json"
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
 }

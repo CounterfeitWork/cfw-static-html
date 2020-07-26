@@ -229,14 +229,14 @@ module.exports = (env, options) => {
       })
     );
 
-    if (isProd && (isStatic || isBoilerplate)) {
-      pluginsDef.push(
-        new PrincipalPurge({
-          content: [Path.join(RootDirPath, '*.html')],
-          css: [Path.join(DistDirPath, 'css/*')],
-        })
-      );
-    }
+    // if (isProd && (isStatic || isBoilerplate)) {
+    //   pluginsDef.push(
+    //     new PrincipalPurge({
+    //       content: [Path.join(RootDirPath, '*.html')],
+    //       css: [Path.join(DistDirPath, 'css/*')],
+    //     })
+    //   );
+    // }
 
     return pluginsDef;
   }
@@ -422,7 +422,7 @@ module.exports = (env, options) => {
           ],
         },
         {
-          test: /\.(png|gif|jpe?g|woff|woff2|eot|ttf|svg)$/,
+          test: /\.(png|gif|jpe?g|woff|woff2|eot|ttf)$/,
           exclude: Path.join(SrcDirPath, 'images', 'vectors/inline'),
           use: [
             {
@@ -430,6 +430,19 @@ module.exports = (env, options) => {
               options: {
                 name: '[path][name]-[hash].[ext]',
                 limit: 8192,
+              },
+            },
+          ],
+        },
+        {
+          test: /\.svg$/,
+          exclude: Path.join(SrcDirPath, 'images', 'vectors/inline'),
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                name: '[path][name]-[hash].[ext]',
+                limit: 99999,
               },
             },
           ],

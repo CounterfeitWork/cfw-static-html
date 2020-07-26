@@ -23,6 +23,20 @@ import(/* webpackChunkName: 'vh' */ './javascripts/components/vh').then((obj) =>
   obj.setVh();
 });
 
+const clocks = document.querySelectorAll('.js-clock') as NodeListOf<HTMLElement>;
+if (clocks) {
+  import(/* webpackChunkName: 'nav' */ './javascripts/components/clock').then((obj) => {
+    obj.initClocks(clocks);
+  });
+}
+
+const logos = document.querySelectorAll('.js-logos') as NodeListOf<HTMLElement>;
+if (logos) {
+  import(/* webpackChunkName: 'nav' */ './javascripts/components/logos').then((obj) => {
+    obj.spinLogos(logos);
+  });
+}
+
 // hot module replacement
 // @see https://webpack.js.org/concepts/hot-module-replacement/
 if (module.hot) {
