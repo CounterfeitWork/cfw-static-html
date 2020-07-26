@@ -100,6 +100,10 @@ module.exports = (env, options) => {
             to: Path.join(DistDirPath, 'images/vectors/inline'),
           },
           {
+            from: Path.join(SrcDirPath, 'images/share.png'),
+            to: Path.join(DistDirPath, 'images'),
+          },
+          {
             from: Path.join(SrcDirPath, 'images/favicons/*'),
             to: Path.join(DistDirPath, 'images/favicons'),
             context: 'images/favicons',
