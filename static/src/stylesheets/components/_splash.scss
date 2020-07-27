@@ -161,6 +161,7 @@
 
     @include bp('6') {
       perspective: $bp-6 * 1.5;
+      margin-top: -64px;
     }
 
     @include bp('7') {
@@ -169,6 +170,7 @@
 
     @include bp('8') {
       perspective: $bp-8 * 1.5;
+      margin-top: -72px;
     }
   }
 
