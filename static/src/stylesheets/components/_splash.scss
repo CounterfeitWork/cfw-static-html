@@ -90,6 +90,11 @@
     grid-area: a;
     font: inherit;
     margin: 0;
+
+    @include bp('6') {
+      position: relative;
+      z-index: 10;
+    }
   }
 
   @include e('description') {
@@ -99,6 +104,7 @@
     @include bp('6') {
       position: relative;
       top: -4px;
+      z-index: 10;
     }
   }
 
@@ -110,11 +116,29 @@
       grid-area: b;
       margin: 0;
     }
+
+    @include bp('6') {
+      position: relative;
+      z-index: 10;
+    }
   }
 
   @include e('links') {
-    @include links-styles-inverted;
     grid-area: c;
+
+    @include bp('6') {
+      position: relative;
+      z-index: 10;
+    }
+
+    a {
+      text-decoration: none;
+
+      &:hover,
+      &:active {
+        opacity: 0.5;
+      }
+    }
   }
 
   @include e('links-list') {
