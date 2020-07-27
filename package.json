@@ -6,7 +6,7 @@
   "repository": "https://github.com/julesrenaud/cfw-static-html",
   "author": "Jules Renaud",
   "config": {
-    "ssh_dev": "cfw-infra-prod:~/www/counterfeit.work/public_html",
+    "ssh_prod": "cfw-infra-prod:~/www/counterfeit.work/public_html",
     "principal-static-html-boilerplate-version": "1.3.3",
     "principal-frontend-boilerplate-version": "3.5.1"
   },
@@ -19,7 +19,7 @@
     "start-watch": "webpack --watch --config ./static/src/config/webpack.config.js --mode=development --appType=static",
     "start-dev": "webpack-dev-server --config ./static/src/config/webpack.config.js --mode=development --appType=static --devServer=true",
     "zip": "zip ../$npm_package_name-$(date \"+%s\").zip -r ./dist index.html",
-    "deploy-dev": "rsync -r static/dist $npm_package_config_ssh_dev/static; rsync -v --stats --progress index.html ${npm_package_config_ssh_dev}",
+    "deploy-prod": "rsync -r static/dist $npm_package_config_ssh_dev/static; rsync -v --stats --progress index.html ${npm_package_config_ssh_dev}",
     "open-repo": "open $npm_package_repository_url",
     "test-chrome": "jest --config=./test/jest.config.js --browser=chromium --detectOpenHandles",
     "test-firefox": "jest --config=./test/jest.config.js --browser=firefox --detectOpenHandles",
