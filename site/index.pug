@@ -2,7 +2,7 @@ extends ../layout.pug
 
 block main
   +b('splash')
-    +e('splash', 'title', 'h1')= 'Counterfeit'
+    +e('splash', 'title', 'h1')= "Counterfeit"
 
     h2.is-hidden Description
     +e('splash', 'description', 'p')
@@ -21,12 +21,10 @@ block main
           a(href='mailto:info@counterfeit.work') Mail
 
     +e('splash', 'logos').js-logos
-      +e('splash', 'logos-group')
-        - let i = 1
+      +e('splash', 'logos-group').js-logos-group
+        - let i = 1;
         while i <= 9
-          +e('splash', 'logos-item')(data-num=i class=(i === 1)?'js-logo is-active':'js-logo')
-            img(data-color='black' src=require(`src/images/vectors/logo-black-${i}.svg`).default)
-            img(data-color='white' src=require(`src/images/vectors/logo-white-${i}.svg`).default)
-          - i++
-
-
+          +e('splash', 'logos-item')(data-num=i class=i === 1 ? "js-logo is-active" : "js-logo")
+            +svg(1728,840)
+              img(inline src=require(`../static/src/images/vectors/inline/logo-${i}.svg`))
+          - i++;

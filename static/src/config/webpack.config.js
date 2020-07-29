@@ -57,9 +57,9 @@ module.exports = (env, options) => {
     {
       collapseGroups: true,
     },
-    {
-      cleanupIDs: true,
-    },
+    // {
+    //   cleanupIDs: true,
+    // },
     {
       convertPathData: false,
     },
