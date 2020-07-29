@@ -44,8 +44,8 @@ function getDate(): string {
 function getTime(): string {
   const now = new Date();
 
-  return now.toLocaleTimeString([], {
-    hour12: false,
+  return now.toLocaleTimeString(['fr-FR'], {
+    // hour12: false,
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
