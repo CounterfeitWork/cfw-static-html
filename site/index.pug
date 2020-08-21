@@ -25,6 +25,7 @@ block main
         - let i = 1;
         while i <= 9
           +e('splash', 'logos-item')(data-num=i class=i === 1 ? "js-logo is-active" : "js-logo")
-            +svg(1728,840)
-              img(inline src=require(`../static/src/images/vectors/inline/logo-${i}.svg`))
+            //- +svg(1728,840)
+            img(inline src=require(`../static/src/images/vectors/inline/logo-${i}.svg`))
+            //- img(inline src=require(`../static/src/images/vectors/inline/logo-4.svg`))
           - i++;

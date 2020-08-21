@@ -208,7 +208,7 @@
     animation-timing-function: linear;
     animation-name: rotateY1;
     animation-iteration-count: 1;
-    animation-delay: 700ms;
+    animation-delay: 500ms;
   }
 
   @include e('logos-item') {
@@ -222,7 +222,7 @@
     }
 
     img,
-    .svg-inline-container {
+    svg {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -242,7 +242,7 @@
         }
       }
 
-      &[id$='-White'] {
+      &[class$='-White'] {
         fill: color-get('white');
 
         body.theme-dark & {
