@@ -110,10 +110,10 @@
 
   @include e('clock') {
     @include hidden;
-    overflow: hidden;
 
     @include bp('2') {
       @include not-hidden;
+      overflow: hidden;
       grid-area: b;
       margin: 0;
     }
