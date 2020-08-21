@@ -24,23 +24,37 @@ export const spinLogos = (els: NodeListOf<HTMLElement>): void => {
     });
 
     el.addEventListener(
-      'animationiteration',
+      'animationend',
       () => {
-        const activeLogo: HTMLElement = el.querySelector('.is-active');
-        const activeNum = parseInt(activeLogo.dataset.num);
-        const switchNum = activeNum + 1;
-        let switchLogo = el.querySelector(`[data-num='${switchNum}']`);
+        const group: HTMLElement = el.querySelector('.js-logos-group');
 
-        activeLogo.classList.remove('is-active');
+        if (!group) return;
 
-        if (switchLogo) {
-          switchLogo.classList.add('is-active');
-        } else {
-          switchLogo = el.querySelector(`[data-num='1']`);
-          switchLogo.classList.add('is-active');
-        }
+        switchLogo.bind(el)();
+        group.style.animationDuration = '3s';
+        group.style.animationIterationCount = 'infinite';
+        group.style.animationDelay = '0ms';
+        group.style.animationName = 'rotateY2';
       },
       false
     );
+
+    el.addEventListener('animationiteration', switchLogo, false);
   }
 };
+
+function switchLogo() {
+  const activeLogo: HTMLElement = this.querySelector('.is-active');
+  const activeNum = parseInt(activeLogo.dataset.num);
+  const switchNum = activeNum + 1;
+  let switchLogo = this.querySelector(`[data-num='${switchNum}']`);
+
+  activeLogo.classList.remove('is-active');
+
+  if (switchLogo) {
+    switchLogo.classList.add('is-active');
+  } else {
+    switchLogo = this.querySelector(`[data-num='1']`);
+    switchLogo.classList.add('is-active');
+  }
+}

@@ -58,7 +58,10 @@ module.exports = (env, options) => {
       collapseGroups: true,
     },
     {
-      cleanupIDs: true,
+      cleanupIDs: false,
+    },
+    {
+      prefixIds: true,
     },
     {
       convertPathData: false,
@@ -447,6 +450,12 @@ module.exports = (env, options) => {
               options: {
                 name: '[path][name]-[hash].[ext]',
                 limit: 99999,
+              },
+            },
+            {
+              loader: 'svgo-loader',
+              options: {
+                plugins: svgoPlugins,
               },
             },
           ],

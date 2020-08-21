@@ -44,8 +44,8 @@ function getDate(): string {
 function getTime(): string {
   const now = new Date();
 
-  return now.toLocaleTimeString([], {
-    hour12: false,
+  return now.toLocaleTimeString(['fr-FR'], {
+    // hour12: false,
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
@@ -61,8 +61,10 @@ function setTheme(): void {
 
   if (hours >= 12) {
     document.body.classList.add('theme-dark');
+    document.body.classList.remove('theme-light');
   } else {
     document.body.classList.remove('theme-dark');
+    document.body.classList.add('theme-light');
   }
 }
 

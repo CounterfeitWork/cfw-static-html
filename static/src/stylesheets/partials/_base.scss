@@ -16,6 +16,7 @@ body {
   &.theme-dark {
     background-color: color-get('black');
     color: color-get('white');
+    transition: background-color 250ms linear 250ms, color 250ms linear 250ms;
   }
 
   // Define current breakpoint
