@@ -21,13 +21,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@principalstudio'
       - name: npm ci
         run: npm ci
       - name: build-prod
         run: npm run build-prod-cwd
-      - name: Remove unwanted files, add redirect and edit .gitignore file
+      - name: Remove unwanted files and edit .gitignore file
         run: |
           shopt -s extglob
           rm -R !("fr"|"en"|"static")
