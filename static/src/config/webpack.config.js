@@ -41,7 +41,7 @@ module.exports = (env, options) => {
   let publicPath = '/';
   let publicPathBase = publicPath;
 
-  if (env && env.useCwdPublicPath) {
+  if (options.useCwdPublicPath) {
     publicPath = publicPathBase = `/${Path.basename(process.cwd())}/`;
   }
 
