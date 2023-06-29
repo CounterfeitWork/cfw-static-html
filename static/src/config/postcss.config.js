@@ -3,7 +3,7 @@ module.exports = () => {
   const DistDirPath = Path.resolve(__dirname, '../../dist');
   return {
     plugins: {
-      'postcss-normalize': {},
+      // 'postcss-normalize': {},
       'postcss-flexbugs-fixes': {},
       'postcss-critical-css': {
         outputPath: Path.join(DistDirPath, '/css'),

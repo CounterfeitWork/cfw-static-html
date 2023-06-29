@@ -11,11 +11,12 @@
     "principal-frontend-boilerplate-version": "3.5.1"
   },
   "engines": {
-    "node": "12.18.1"
+    "node": "12.x.x"
   },
   "scripts": {
     "build-dev": "webpack --config ./static/src/config/webpack.config.js --mode=development --appType=static",
     "build-prod": "webpack --config ./static/src/config/webpack.config.js --mode=production --appType=static",
+    "build-prod-cwd": "webpack --config ./static/src/config/webpack.config.js --mode=production --appType=static --useCwdPublicPath",
     "start-watch": "webpack --watch --config ./static/src/config/webpack.config.js --mode=development --appType=static",
     "start-dev": "webpack-dev-server --config ./static/src/config/webpack.config.js --mode=development --appType=static --devServer=true",
     "zip": "zip ../$npm_package_name-$(date \"+%s\").zip -r ./dist index.html",

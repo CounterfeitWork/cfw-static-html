@@ -7,7 +7,7 @@ module.exports = (env, options) => {
   const JsonImporter = require('node-sass-json-importer');
   const { CleanWebpackPlugin } = require('clean-webpack-plugin');
   const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-  const StyleLintPlugin = require('stylelint-webpack-plugin');
+  // const StyleLintPlugin = require('stylelint-webpack-plugin');
   const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
   const HtmlWebpackPlugin = require('html-webpack-plugin');
   const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
@@ -38,12 +38,17 @@ module.exports = (env, options) => {
   let pugPartialsDirPath;
   let pugStylesheetsPath;
   let pugScriptsPath;
-  const publicPath = isBoilerplate || isStatic ? '/static/dist/' : '/';
+  let publicPath = '/';
+  let publicPathBase = publicPath;
+
+  if (env && env.useCwdPublicPath) {
+    publicPath = publicPathBase = `/${Path.basename(process.cwd())}/`;
+  }
 
   if (isBoilerplate || isStatic) {
-    pugPartialsDirPath = Path.join(RootDirPath, 'site/partials');
-    pugStylesheetsPath = Path.join(pugPartialsDirPath, 'head/styles-hashed.pug');
-    pugScriptsPath = Path.join(pugPartialsDirPath, 'scripts-hashed.pug');
+    publicPath += 'static/dist/';
+  } else if (isWp) {
+    publicPath += `wp-content/themes/${Path.basename(process.cwd())}/dist/`;
   }
 
   // Configure svgo
@@ -139,15 +144,15 @@ module.exports = (env, options) => {
         })
       );
 
-      pluginsDef.push(
-        new StyleLintPlugin({
-          configFile: Path.resolve(__dirname, '.stylelintrc.json'),
-          context: Path.join(SrcDirPath, 'stylesheets'),
-          files: '**/*.scss',
-          syntax: 'scss',
-          emitWarning: !isProd,
-        })
-      );
+      // pluginsDef.push(
+      //   new StyleLintPlugin({
+      //     configFile: Path.resolve(__dirname, '.stylelintrc.json'),
+      //     context: Path.join(SrcDirPath, 'stylesheets'),
+      //     files: '**/*.scss',
+      //     syntax: 'scss',
+      //     emitWarning: !isProd,
+      //   })
+      // );
     }
 
     // Configure HTML injection
