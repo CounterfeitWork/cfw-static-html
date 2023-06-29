@@ -5,11 +5,11 @@ on:
     branches:
       - master
 jobs:
-  deploy_dev:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Cache node modules
         uses: actions/cache@v1
         with:
@@ -26,6 +26,7 @@ jobs:
       - name: build-prod
         run: npm run build-prod-cwd
       - name: Remove unwanted files and edit .gitignore file
+        if: always()
         run: |
           shopt -s extglob
           rm -R !("fr"|"en"|"static")
@@ -48,6 +49,7 @@ jobs:
           EOL
         shell: bash
       - name: Deploy to GitHub Pages
+        if: always()
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
           branch: gh-pages
