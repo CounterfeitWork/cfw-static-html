@@ -19,20 +19,3 @@ jobs:
           main-branch: master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: prepare-version-number-var
-        id: prep
-        run: |
-          VERSION=${GITHUB_REF#refs/tags/}
-          echo ::set-output name=version::${VERSION}
-      - name: update-package-version
-        uses: MerthinTechnologies/edit-json-action@v1
-        with:
-          filename: './package.json'
-          key: 'version'
-          value: ${{ steps.prep.outputs.version }}
-      - name: update-package-lock-version
-        uses: MerthinTechnologies/edit-json-action@v1
-        with:
-          filename: './package-lock.json'
-          key: 'version'
-          value: ${{ steps.prep.outputs.version }}

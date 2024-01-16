@@ -1,0 +1,39 @@
+name: Update version number
+on:
+  push:
+    tags:
+      - v*
+jobs:
+  update_version_number:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v2
+      - name: Prepare tag
+        id: prep
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          echo ::set-output name=version::${VERSION}
+      - name: Update package version
+        uses: MerthinTechnologies/edit-json-action@v1
+        with:
+          filename: './package.json'
+          key: 'version'
+          value: ${{ steps.prep.outputs.version }}
+      - name: Update package-lock version
+        uses: MerthinTechnologies/edit-json-action@v1
+        with:
+          filename: './package-lock.json'
+          key: 'version'
+          value: ${{ steps.prep.outputs.version }}
+      - name: Commit changes and push
+        run: |
+          git config --global user.email 'github-actions-git-commit@users.noreply.github.com'
+          git config --global user.name 'Github Actions'
+          git fetch
+          git checkout master
+          git add package.json
+          git add package-lock.json
+          git add manifests/deployment-prod.yaml
+          git commit -m 'Update version number'
+          git push
