@@ -34,6 +34,5 @@ jobs:
           git checkout master
           git add package.json
           git add package-lock.json
-          git add manifests/deployment-prod.yaml
           git commit -m 'Update version number'
           git push
