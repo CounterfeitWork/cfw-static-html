@@ -16,7 +16,7 @@ jobs:
       - name: handle-release-notes
         uses: principalstudio/handle-release-notes@v1
         with:
-          main-branch: main
+          main-branch: master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: prepare-version-number-var
