@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.0.4 (16/01/2024)
+*No changelog for this release.*
+
+---
+
+## v1.0.3 (16/01/2024)
+*No changelog for this release.*
+
+---
+
 ## v1.0.2 (21/08/2020)
 
 #### Features
