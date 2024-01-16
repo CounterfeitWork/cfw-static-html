@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.0.7 (16/01/2024)
+*No changelog for this release.*
+
+---
+
 ## v1.0.6 (16/01/2024)
 *No changelog for this release.*
 
