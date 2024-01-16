@@ -13,7 +13,7 @@ jobs:
         id: prep
         run: |
           VERSION=${GITHUB_REF#refs/tags/}
-          echo ::set-output name=version::${VERSION}
+          echo ::set-output name=version::${VERSION:1}
       - name: Update package version
         uses: MerthinTechnologies/edit-json-action@v1
         with:
