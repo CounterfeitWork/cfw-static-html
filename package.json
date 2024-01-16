@@ -1,7 +1,7 @@
 {
   "name": "cfw-static-html",
   "private": true,
-  "version": "v1.0.6",
+  "version": "1.0.7",
   "description": "Static HTML one-pager for CFW project",
   "repository": "https://github.com/julesrenaud/cfw-static-html",
   "author": "Jules Renaud",
